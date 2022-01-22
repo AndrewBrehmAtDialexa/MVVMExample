@@ -16,12 +16,14 @@
 		553807E9279B84F40044758B /* MVVMExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553807C0279B84F20044758B /* MVVMExampleApp.swift */; };
 		553807EC279B84F40044758B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 553807C2279B84F40044758B /* Assets.xcassets */; };
 		553807ED279B84F40044758B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 553807C2279B84F40044758B /* Assets.xcassets */; };
-		554D9D4B279B862500AA9CD9 /* LandingScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554D9D49279B862500AA9CD9 /* LandingScreenViewModel.swift */; };
-		554D9D4E279B86A000AA9CD9 /* LandingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554D9D4D279B86A000AA9CD9 /* LandingScreen.swift */; };
-		554D9D53279B86EA00AA9CD9 /* LandingScreenSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554D9D52279B86EA00AA9CD9 /* LandingScreenSpec.swift */; };
-		554D9D55279B870500AA9CD9 /* LandingScreenViewModelSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554D9D54279B870500AA9CD9 /* LandingScreenViewModelSpec.swift */; };
-		554D9D57279B871600AA9CD9 /* MockLandingScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554D9D56279B871600AA9CD9 /* MockLandingScreenViewModel.swift */; };
-		554D9D59279B872800AA9CD9 /* Inspection+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554D9D58279B872800AA9CD9 /* Inspection+Extensions.swift */; };
+		55DBBB98279BAB26003A5989 /* LandingScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DBBB96279BAB26003A5989 /* LandingScreenViewModel.swift */; };
+		55DBBB99279BAB26003A5989 /* LandingScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DBBB96279BAB26003A5989 /* LandingScreenViewModel.swift */; };
+		55DBBB9A279BAB26003A5989 /* LandingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DBBB97279BAB26003A5989 /* LandingScreen.swift */; };
+		55DBBB9B279BAB26003A5989 /* LandingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DBBB97279BAB26003A5989 /* LandingScreen.swift */; };
+		55DBBBA2279BAB4B003A5989 /* MockLandingScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DBBB9D279BAB4B003A5989 /* MockLandingScreenViewModel.swift */; };
+		55DBBBA3279BAB4B003A5989 /* Inspection+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DBBB9F279BAB4B003A5989 /* Inspection+Extensions.swift */; };
+		55DBBBA4279BAB4B003A5989 /* LandingScreenViewModelSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DBBBA0279BAB4B003A5989 /* LandingScreenViewModelSpec.swift */; };
+		55DBBBA5279BAB4B003A5989 /* LandingScreenSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DBBBA1279BAB4B003A5989 /* LandingScreenSpec.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,7 +56,6 @@
 		553807C2279B84F40044758B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		553807C7279B84F40044758B /* MVVMExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MVVMExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		553807CD279B84F40044758B /* MVVMExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MVVMExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		553807CF279B84F40044758B /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		553807D4279B84F40044758B /* Tests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		553807D8279B84F40044758B /* Tests_iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_iOS.swift; sourceTree = "<group>"; };
 		553807DA279B84F40044758B /* Tests_iOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_iOSLaunchTests.swift; sourceTree = "<group>"; };
@@ -62,13 +63,13 @@
 		553807E4279B84F40044758B /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		553807E6279B84F40044758B /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
 		55380803279B85550044758B /* MVVMExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MVVMExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		554D9D49279B862500AA9CD9 /* LandingScreenViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LandingScreenViewModel.swift; path = ../../../TempProj/Shared/LandingScreenViewModel.swift; sourceTree = "<group>"; };
-		554D9D4D279B86A000AA9CD9 /* LandingScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LandingScreen.swift; path = ../../../TempProj/Shared/LandingScreen.swift; sourceTree = "<group>"; };
 		554D9D51279B86E900AA9CD9 /* MVVMExampleTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MVVMExampleTests-Bridging-Header.h"; sourceTree = "<group>"; };
-		554D9D52279B86EA00AA9CD9 /* LandingScreenSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LandingScreenSpec.swift; path = ../../../TempProj/TempProjTests/LandingScreenSpec.swift; sourceTree = "<group>"; };
-		554D9D54279B870500AA9CD9 /* LandingScreenViewModelSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LandingScreenViewModelSpec.swift; path = ../../../TempProj/TempProjTests/LandingScreenViewModelSpec.swift; sourceTree = "<group>"; };
-		554D9D56279B871600AA9CD9 /* MockLandingScreenViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockLandingScreenViewModel.swift; path = ../../../TempProj/TempProjTests/Mocks/MockLandingScreenViewModel.swift; sourceTree = "<group>"; };
-		554D9D58279B872800AA9CD9 /* Inspection+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Inspection+Extensions.swift"; path = "../../../TempProj/TempProjTests/Extensions/Inspection+Extensions.swift"; sourceTree = "<group>"; };
+		55DBBB96279BAB26003A5989 /* LandingScreenViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandingScreenViewModel.swift; sourceTree = "<group>"; };
+		55DBBB97279BAB26003A5989 /* LandingScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandingScreen.swift; sourceTree = "<group>"; };
+		55DBBB9D279BAB4B003A5989 /* MockLandingScreenViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockLandingScreenViewModel.swift; sourceTree = "<group>"; };
+		55DBBB9F279BAB4B003A5989 /* Inspection+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Inspection+Extensions.swift"; sourceTree = "<group>"; };
+		55DBBBA0279BAB4B003A5989 /* LandingScreenViewModelSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandingScreenViewModelSpec.swift; sourceTree = "<group>"; };
+		55DBBBA1279BAB4B003A5989 /* LandingScreenSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandingScreenSpec.swift; sourceTree = "<group>"; };
 		8FECA0A644A292C6E70540F4 /* Pods-MVVMExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVMExampleTests.release.xcconfig"; path = "Target Support Files/Pods-MVVMExampleTests/Pods-MVVMExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		9E2B7E23047826226A3CF99F /* Pods-MVVMExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVMExampleTests.debug.xcconfig"; path = "Target Support Files/Pods-MVVMExampleTests/Pods-MVVMExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C6EAF917C0679ECF7CB3E3D2 /* Pods_MVVMExampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MVVMExampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -118,7 +119,6 @@
 			isa = PBXGroup;
 			children = (
 				553807BF279B84F20044758B /* Shared */,
-				553807CE279B84F40044758B /* macOS */,
 				553807D7279B84F40044758B /* Tests iOS */,
 				553807E3279B84F40044758B /* Tests macOS */,
 				55380804279B85550044758B /* MVVMExampleTests */,
@@ -131,9 +131,8 @@
 		553807BF279B84F20044758B /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				553807FE279B853C0044758B /* ViewModels */,
-				553807FD279B85360044758B /* Models */,
-				553807FC279B852F0044758B /* Views */,
+				55DBBB97279BAB26003A5989 /* LandingScreen.swift */,
+				55DBBB96279BAB26003A5989 /* LandingScreenViewModel.swift */,
 				553807C0279B84F20044758B /* MVVMExampleApp.swift */,
 				553807C2279B84F40044758B /* Assets.xcassets */,
 			);
@@ -150,14 +149,6 @@
 				55380803279B85550044758B /* MVVMExampleTests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		553807CE279B84F40044758B /* macOS */ = {
-			isa = PBXGroup;
-			children = (
-				553807CF279B84F40044758B /* macOS.entitlements */,
-			);
-			path = macOS;
 			sourceTree = "<group>";
 		};
 		553807D7279B84F40044758B /* Tests iOS */ = {
@@ -178,71 +169,32 @@
 			path = "Tests macOS";
 			sourceTree = "<group>";
 		};
-		553807FC279B852F0044758B /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				554D9D4D279B86A000AA9CD9 /* LandingScreen.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		553807FD279B85360044758B /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		553807FE279B853C0044758B /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				554D9D49279B862500AA9CD9 /* LandingScreenViewModel.swift */,
-			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
 		55380804279B85550044758B /* MVVMExampleTests */ = {
 			isa = PBXGroup;
 			children = (
+				55DBBB9E279BAB4B003A5989 /* Extensions */,
+				55DBBBA1279BAB4B003A5989 /* LandingScreenSpec.swift */,
+				55DBBBA0279BAB4B003A5989 /* LandingScreenViewModelSpec.swift */,
+				55DBBB9C279BAB4B003A5989 /* Mocks */,
 				554D9D51279B86E900AA9CD9 /* MVVMExampleTests-Bridging-Header.h */,
-				554D9D50279B86CC00AA9CD9 /* ViewModels */,
-				554D9D4F279B86C600AA9CD9 /* Views */,
-				5538080D279B85720044758B /* Mocks */,
-				5538080C279B85670044758B /* Extensions */,
 			);
 			path = MVVMExampleTests;
 			sourceTree = "<group>";
 		};
-		5538080C279B85670044758B /* Extensions */ = {
+		55DBBB9C279BAB4B003A5989 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				554D9D58279B872800AA9CD9 /* Inspection+Extensions.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
-		5538080D279B85720044758B /* Mocks */ = {
-			isa = PBXGroup;
-			children = (
-				554D9D56279B871600AA9CD9 /* MockLandingScreenViewModel.swift */,
+				55DBBB9D279BAB4B003A5989 /* MockLandingScreenViewModel.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
 		};
-		554D9D4F279B86C600AA9CD9 /* Views */ = {
+		55DBBB9E279BAB4B003A5989 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				554D9D52279B86EA00AA9CD9 /* LandingScreenSpec.swift */,
+				55DBBB9F279BAB4B003A5989 /* Inspection+Extensions.swift */,
 			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		554D9D50279B86CC00AA9CD9 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				554D9D54279B870500AA9CD9 /* LandingScreenViewModelSpec.swift */,
-			);
-			path = ViewModels;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		59596A17E6BC3A46C0441556 /* Frameworks */ = {
@@ -496,8 +448,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				554D9D4B279B862500AA9CD9 /* LandingScreenViewModel.swift in Sources */,
-				554D9D4E279B86A000AA9CD9 /* LandingScreen.swift in Sources */,
+				55DBBB98279BAB26003A5989 /* LandingScreenViewModel.swift in Sources */,
+				55DBBB9A279BAB26003A5989 /* LandingScreen.swift in Sources */,
 				553807E8279B84F40044758B /* MVVMExampleApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -506,6 +458,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55DBBB99279BAB26003A5989 /* LandingScreenViewModel.swift in Sources */,
+				55DBBB9B279BAB26003A5989 /* LandingScreen.swift in Sources */,
 				553807E9279B84F40044758B /* MVVMExampleApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -532,10 +486,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				554D9D55279B870500AA9CD9 /* LandingScreenViewModelSpec.swift in Sources */,
-				554D9D53279B86EA00AA9CD9 /* LandingScreenSpec.swift in Sources */,
-				554D9D59279B872800AA9CD9 /* Inspection+Extensions.swift in Sources */,
-				554D9D57279B871600AA9CD9 /* MockLandingScreenViewModel.swift in Sources */,
+				55DBBBA4279BAB4B003A5989 /* LandingScreenViewModelSpec.swift in Sources */,
+				55DBBBA2279BAB4B003A5989 /* MockLandingScreenViewModel.swift in Sources */,
+				55DBBBA5279BAB4B003A5989 /* LandingScreenSpec.swift in Sources */,
+				55DBBBA3279BAB4B003A5989 /* Inspection+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
