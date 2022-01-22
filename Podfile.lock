@@ -1,0 +1,24 @@
+PODS:
+  - Nimble (9.2.1)
+  - Quick (4.0.0)
+  - ViewInspector (0.9.1)
+
+DEPENDENCIES:
+  - Nimble
+  - Quick
+  - ViewInspector
+
+SPEC REPOS:
+  trunk:
+    - Nimble
+    - Quick
+    - ViewInspector
+
+SPEC CHECKSUMS:
+  Nimble: e7e615c0335ee4bf5b0d786685451e62746117d5
+  Quick: 6473349e43b9271a8d43839d9ba1c442ed1b7ac4
+  ViewInspector: 68842776f07fbf186713689d4846e54f32ccbffb
+
+PODFILE CHECKSUM: 38e00efa2f4b84991705a4af23a1d98bd38ef428
+
+COCOAPODS: 1.11.2
