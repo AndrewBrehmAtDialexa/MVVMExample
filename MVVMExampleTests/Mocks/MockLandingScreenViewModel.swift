@@ -1,10 +1,3 @@
-//
-//  MockLandingScreenViewModel.swift
-//  TempProjTests
-//
-//  Created by Andrew Brehm on 1/20/22.
-//
-
 import Foundation
 @testable import MVVMExample
 

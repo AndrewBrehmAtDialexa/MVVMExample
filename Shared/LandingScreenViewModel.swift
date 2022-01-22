@@ -1,10 +1,3 @@
-//
-//  ContentViewViewModel.swift
-//  TempProj
-//
-//  Created by Andrew Brehm on 1/20/22.
-//
-
 import Foundation
 import SwiftUI
 

@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  Shared
-//
-//  Created by Andrew Brehm on 1/20/22.
-//
-
 import SwiftUI
 
 struct LandingScreen: View {
