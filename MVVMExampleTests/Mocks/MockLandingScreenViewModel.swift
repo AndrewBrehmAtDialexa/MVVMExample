@@ -5,6 +5,7 @@ class MockLandingScreenViewModel: LandingScreenViewModel {
     
     var buttonATappedWasCalled = false
     var buttonBTappedWasCalled = false
+    var navLinkADestinationWasCalled = false
     
     override func buttonATapped() {
         buttonATappedWasCalled = true
@@ -12,5 +13,11 @@ class MockLandingScreenViewModel: LandingScreenViewModel {
     
     override func buttonBTapped() {
         buttonBTappedWasCalled = true
+    }
+    
+    override func navLinkADestination() -> IconDisplayScreen {
+        navLinkADestinationWasCalled = true
+        
+        return IconDisplayScreen()
     }
 }

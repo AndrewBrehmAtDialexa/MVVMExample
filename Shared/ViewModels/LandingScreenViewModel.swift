@@ -8,6 +8,8 @@ class LandingScreenViewModel: ObservableObject {
     @Published var buttonABackground = Color(.blue)
     @Published var buttonBBackground = Color(.red)
     
+    var iconDisplayScreen = IconDisplayScreen()
+    
     func buttonATapped() {
         DispatchQueue.main.async {
             self.buttonAText = "TAPPED A"
@@ -20,5 +22,9 @@ class LandingScreenViewModel: ObservableObject {
             self.buttonBText = "TAPPED B"
             self.buttonBBackground = .yellow
         }
+    }
+    
+    func navLinkADestination() -> IconDisplayScreen {
+        return iconDisplayScreen
     }
 }

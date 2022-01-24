@@ -117,6 +117,18 @@ class LandingScreenViewModelSpec: QuickSpec {
                     expect(uut?.buttonBBackground).toEventually(equal(.yellow))
                 }
             }
+            
+            describe("when .navLinkADestination()") {
+                var result: IconDisplayScreen?
+                
+                beforeEach {
+                    result = uut?.navLinkADestination()
+                }
+                
+                it("returns a IconDisplayScreen") {
+                    expect(result).to(beAKindOf(IconDisplayScreen.self))
+                }
+            }
         }
     }
 }
