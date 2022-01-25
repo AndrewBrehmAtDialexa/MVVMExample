@@ -1,4 +1,3 @@
-import Foundation
 import SwiftUI
 
 class LandingScreenViewModel: ObservableObject {
@@ -8,7 +7,7 @@ class LandingScreenViewModel: ObservableObject {
     @Published var buttonABackground = Color(.blue)
     @Published var buttonBBackground = Color(.red)
     
-    var iconDisplayScreen = IconDisplayScreen()
+    var movieListScreen = MovieListScreen()
     
     func buttonATapped() {
         DispatchQueue.main.async {
@@ -24,7 +23,7 @@ class LandingScreenViewModel: ObservableObject {
         }
     }
     
-    func navLinkADestination() -> IconDisplayScreen {
-        return iconDisplayScreen
+    func navLinkADestination() -> MovieListScreen {
+        return movieListScreen
     }
 }

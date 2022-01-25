@@ -58,7 +58,7 @@ struct LandingScreen: View {
                         landingScreenViewModel.navLinkADestination()
                     },
                     label: {
-                        Text("Display Icons")
+                        Text("Movie List")
                             .padding()
                             .foregroundColor(.white)
                             .background(.green)

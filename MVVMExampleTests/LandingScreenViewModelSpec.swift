@@ -119,14 +119,14 @@ class LandingScreenViewModelSpec: QuickSpec {
             }
             
             describe("when .navLinkADestination()") {
-                var result: IconDisplayScreen?
+                var result: MovieListScreen?
                 
                 beforeEach {
                     result = uut?.navLinkADestination()
                 }
                 
                 it("returns a IconDisplayScreen") {
-                    expect(result).to(beAKindOf(IconDisplayScreen.self))
+                    expect(result).to(beAKindOf(MovieListScreen.self))
                 }
             }
         }
