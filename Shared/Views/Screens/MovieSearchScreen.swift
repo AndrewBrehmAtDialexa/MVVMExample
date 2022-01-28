@@ -29,7 +29,6 @@ struct MovieSearchScreen: View {
             MovieListView(withMovieListScreenViewModel: movieListScreenViewModel)
         }
         .navigationTitle("Movies")
-        .background(Color(.red))
         .onAppear { self.didAppear?(self) }
         .id("mainVStack")
     }

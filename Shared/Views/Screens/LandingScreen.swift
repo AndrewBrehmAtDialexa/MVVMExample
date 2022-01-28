@@ -1,17 +1,9 @@
 import SwiftUI
-/*
- 
- UI elements
- * VStack
- * Text - various attributes
- * HStack
- * Button
- 
- */
 
 struct LandingScreen: View {
     
     @ObservedObject var landingScreenViewModel = LandingScreenViewModel()
+    internal var didAppear: ((Self) -> Void)?
     
     var body: some View {
         NavigationView {
@@ -67,6 +59,7 @@ struct LandingScreen: View {
             .navigationTitle("Landing Screen")
             .id("mainVStack")
         }
+        .onAppear { self.didAppear?(self) }
         .id("navView")
     }
     

@@ -39,6 +39,7 @@ struct MovieListCell: View {
             .id("textHolderVStack")
             Spacer()
         }
+        .id("mainHStack")
         .background(Color(.lightGray))
     }
 }

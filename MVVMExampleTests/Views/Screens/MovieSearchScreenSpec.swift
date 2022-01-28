@@ -107,6 +107,25 @@ class MovieSearchScreenSpec: QuickSpec {
                                     }
                                 }
                             }
+                            
+                            it("has .padding") {
+                                expect(searchField?.hasPadding()).to(beTrue())
+                            }
+                            
+                            describe("the border") {
+                                var border: (shapeStyle: Color, width: CGFloat)?
+                                
+                                beforeEach {
+                                    border = try? searchField?.border(Color.self)
+                                }
+                                
+                                it("has a shapeStyle of Color(.black)") {
+                                    expect(border?.shapeStyle).to(equal(Color(.black)))
+                                }
+                                it("has a .width of 2.0") {
+                                    expect(border?.width).to(equal(2.0))
+                                }
+                            }
                         }
                     }
                     

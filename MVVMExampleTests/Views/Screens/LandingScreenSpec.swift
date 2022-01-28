@@ -52,7 +52,7 @@ class LandingScreenSpec: QuickSpec {
                             // try uut?.body.inspect().find(ViewType.Text.self, relation: .child, where: { try $0.id() as! String == "screenTextA"})
                             screenTextB = mainVStack?.findChild(type: ViewType.Text.self, withId: "screenTextB")
                             buttonHolder = mainVStack?.findChild(type: ViewType.HStack.self, withId: "buttonHolder")
-                            navLinkA = mainVStack?.findNavLink("Display Icons")
+                            navLinkA = mainVStack?.findNavLink("Movie List")
                         }
                         
                         it("has a Text with .id 'screenTextA'") {
@@ -139,6 +139,11 @@ class LandingScreenSpec: QuickSpec {
                                     it("has a .foregroundColor of .white") {
                                         expect(try buttonLabelText?.attributes().foregroundColor()).to(equal(.white))
                                     }
+                                    
+                                    describe("background") {
+                                        // TODO: background
+                                        //NOTE: background support in development
+                                    }
                                 }
                             }
                             
@@ -177,11 +182,15 @@ class LandingScreenSpec: QuickSpec {
                                     it("has a .foregroundColor of .white") {
                                         expect(try buttonLabelText?.attributes().foregroundColor()).to(equal(.white))
                                     }
+                                    describe("background") {
+                                        // TODO: background
+                                        //NOTE: background support in development
+                                    }
                                 }
                             }
                         }
                         
-                        it("has a NavigationLink with title of 'Display Icons'") {
+                        it("has a NavigationLink with title of 'Movie List'") {
                             expect(navLinkA).toNot(beNil())
                         }
                         

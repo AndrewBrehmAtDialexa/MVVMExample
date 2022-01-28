@@ -6,4 +6,5 @@ import ViewInspector
  */
 extension MovieListView: Inspectable { }
 extension MovieListCell: Inspectable { }
-extension MovieSearchScreen: Inspectable {}
+extension MovieSearchScreen: Inspectable { }
+extension LandingScreen: Inspectable { }

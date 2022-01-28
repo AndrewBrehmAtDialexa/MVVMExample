@@ -7,13 +7,15 @@ class StringExtensionsSpec: QuickSpec {
         describe("String+Extensions") {
             var result: String?
             
-            describe("when .encoded") {
-                beforeEach {
-                    result = "Some Text Here".encoded
-                }
-                
-                it("returns ''") {
-                    expect(result).to(equal("Some%20Text%20Here"))
+            describe("when passed a valid string") {
+                describe("when .encoded") {
+                    beforeEach {
+                        result = "Some Text Here".encoded
+                    }
+                    
+                    it("returns 'Some%20Text%20Here'") {
+                        expect(result).to(equal("Some%20Text%20Here"))
+                    }
                 }
             }
         }
