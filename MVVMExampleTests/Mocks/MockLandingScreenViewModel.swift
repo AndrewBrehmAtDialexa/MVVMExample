@@ -15,9 +15,9 @@ class MockLandingScreenViewModel: LandingScreenViewModel {
         buttonBTappedWasCalled = true
     }
     
-    override func navLinkADestination() -> MovieListScreen {
+    override func navLinkADestination() -> MovieSearchScreen {
         navLinkADestinationWasCalled = true
         
-        return MovieListScreen()
+        return MovieSearchScreen()
     }
 }

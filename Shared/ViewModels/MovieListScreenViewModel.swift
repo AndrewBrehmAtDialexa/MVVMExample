@@ -2,12 +2,13 @@ import SwiftUI
 
 class MovieListScreenViewModel: ObservableObject {
     
-    @Published var movies = [MovieViewModel]() 
+    @Published var movies = [MovieViewModel]()
+    @Published var errorMessageToPresent: String?
     
     var imdbMovieService = ImdbMovieService()
     
-    func getMovies() {
-        imdbMovieService.getMovies(bySearchTerm: "batman") { result in
+    func getMovies(forSearchTerm search: String) {
+        imdbMovieService.getMovies(bySearchTerm: search.encoded) { result in
             switch result {
             case.success(let moviesResult):
                 if let moviesResult = moviesResult {
@@ -15,9 +16,10 @@ class MovieListScreenViewModel: ObservableObject {
                         self.movies = moviesResult.map(MovieViewModel.init)
                     }
                 }
-            case.failure(let error):
-                //present Alert
-                print("ERROR", error)
+            case.failure(let movieError):
+                DispatchQueue.main.async {
+                    self.errorMessageToPresent = movieError.error
+                }
             }
         }
     }

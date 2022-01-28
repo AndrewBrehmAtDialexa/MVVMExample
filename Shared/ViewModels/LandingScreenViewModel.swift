@@ -7,7 +7,7 @@ class LandingScreenViewModel: ObservableObject {
     @Published var buttonABackground = Color(.blue)
     @Published var buttonBBackground = Color(.red)
     
-    var movieListScreen = MovieListScreen()
+    var movieListScreen = MovieSearchScreen()
     
     func buttonATapped() {
         DispatchQueue.main.async {
@@ -23,7 +23,7 @@ class LandingScreenViewModel: ObservableObject {
         }
     }
     
-    func navLinkADestination() -> MovieListScreen {
+    func navLinkADestination() -> MovieSearchScreen {
         return movieListScreen
     }
 }

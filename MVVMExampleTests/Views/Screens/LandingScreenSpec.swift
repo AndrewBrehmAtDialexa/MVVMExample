@@ -112,16 +112,12 @@ class LandingScreenSpec: QuickSpec {
                                 var buttonLabelText: InspectableView<ViewType.Text>?
                                 
                                 beforeEach {
-                                    do {
-                                        buttonLabelText = try buttonA?.labelView().text()
-                                    } catch {}
+                                    buttonLabelText = try? buttonA?.labelView().text()
                                 }
                                 
                                 describe("when tapped") {
                                     beforeEach {
-                                        do {
-                                            try buttonA?.tap()
-                                        } catch {}
+                                        try? buttonA?.tap()
                                     }
                                     
                                     it("calls .landingScreenViewModel.buttonATapped()") {
@@ -154,16 +150,12 @@ class LandingScreenSpec: QuickSpec {
                                 var buttonLabelText: InspectableView<ViewType.Text>?
                                 
                                 beforeEach {
-                                    do {
-                                        buttonLabelText = try buttonB?.labelView().text()
-                                    } catch {}
+                                    buttonLabelText = try? buttonB?.labelView().text()
                                 }
                                 
                                 describe("when tapped") {
                                     beforeEach {
-                                        do {
-                                            try buttonB?.tap()
-                                        } catch {}
+                                        try? buttonB?.tap()
                                     }
                                     
                                     it("calls .landingScreenViewModel.buttonBTapped()") {
