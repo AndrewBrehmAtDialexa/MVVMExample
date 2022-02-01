@@ -83,6 +83,11 @@
       </BuildableProductRunnable>
       <EnvironmentVariables>
          <EnvironmentVariable
+            key = "SNAPSHOT_REFERENCE_DIR"
+            value = "$(PROJECT_DIR)/MVVMExampleSnapshotTests/__Snapshots__"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
             key = "SNAPSHOT_ARTIFACTS"
             value = "$(PROJECT_DIR)/MVVMExampleSnapshotTests/__Snapshots__/failures"
             isEnabled = "YES">

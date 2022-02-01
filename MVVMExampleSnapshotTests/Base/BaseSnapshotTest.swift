@@ -1,8 +1,19 @@
 import SnapshotTesting
 import XCTest
 @testable import MVVMExample
+import SwiftUI
 
 class BaseSnapshotTest: XCTestCase {
+    lazy var fileMethodName = self.description.components(separatedBy: " ")
+    lazy var testCaseName = fileMethodName.first?.sanitized() ?? "UNKNOWN"
+    lazy var methodName = fileMethodName.last?.sanitized() ?? "UNKNOWN"
+    
+    let ScreenSizes: [ViewImageConfig] = [
+        .iPhoneSe,
+        .iPhoneX,
+        .iPhone8
+    ]
+    
     override func setUp() {
         super.setUp()
         
@@ -15,44 +26,92 @@ class BaseSnapshotTest: XCTestCase {
         saveDiffImage()
     }
     
-    private func saveDiffImage() {
-        let fileMethodName = self.description.components(separatedBy: " ")
-        if let testCaseName = fileMethodName.first?.sanitized(),
-           let methodName = fileMethodName.last?.sanitized(),
-           let failureSnapshotDirPath = ProcessInfo.processInfo.environment["SNAPSHOT_ARTIFACTS"] {
-            
-            let failureSnapshotDirUrl = URL(fileURLWithPath: failureSnapshotDirPath, isDirectory: true)
-            let snapshotDirUrl = failureSnapshotDirUrl.deletingLastPathComponent()
-            
-            let failingImageUrl = failureSnapshotDirUrl.appendingPathComponent("\(testCaseName)/\(methodName).1.png")
-            let baselineImageUrl = snapshotDirUrl.appendingPathComponent("\(testCaseName)/\(methodName).1.png")
-            
-            guard
-                let baseImageData = try? Data(contentsOf: baselineImageUrl),
-                let failImagedata = try? Data(contentsOf: failingImageUrl),
-                let originalImage = UIImage(data: baseImageData),
-                let failureImage = UIImage(data: failImagedata) else {
-                    print("ERROR: Image data not found for snapshot")
-                    return
-                }
-            
-            
-            let diffImage = diff(originalImage, failureImage)
-            
-            if let diffData = diffImage.pngData() {
-                let filename = failureSnapshotDirUrl.appendingPathComponent("\(testCaseName)/\(methodName).DIFF.png")
-                try? diffData.write(to: filename)
+    // MARK: - Image Processing
+    
+    func takeSnapshot<Value>(
+        for uut: UIHostingController<Value>,
+        file: StaticString = #file,
+        record recording: Bool = false,
+        timeout: TimeInterval = 0,
+        line: UInt = #line) {
+        //loop ScreenSizes
+        let result = verifySnapshot(
+            matching: uut,
+            as: .image(on: .iPhoneSe), //looped val
+            named: "iPhoneSe",//loopedVal
+            record: recording,
+            snapshotDirectory: pathToSnapshotReferenceDir(),
+            timeout: timeout,
+            file: file,
+            testName: methodName
+        )
+        
+        guard let message = result else { return }
+        XCTFail(message, file: file, line: line)
+    }
+    
+    private func diff(_ old: UIImage, _ new: UIImage) -> UIImage {
+        let width = max(old.size.width, new.size.width)
+        let height = max(old.size.height, new.size.height)
+        UIGraphicsBeginImageContextWithOptions(CGSize(width: width, height: height), true, 0)
+        new.draw(at: .zero)
+        old.draw(at: .zero, blendMode: .difference, alpha: 1)
+        let differenceImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        
+        return differenceImage
+    }
+    
+    private func saveDiffImage() { //loop through dir failures
+        
+        let failureSnapshotDirUrl = URL(fileURLWithPath: pathToSnapshotArtifacts(), isDirectory: true)
+        let snapshotDirUrl = failureSnapshotDirUrl.deletingLastPathComponent()
+        
+        let failingImageUrl = failureSnapshotDirUrl.appendingPathComponent("\(testCaseName)/\(methodName).iPhoneSe.png") //TODO loop files
+        let baselineImageUrl = snapshotDirUrl.appendingPathComponent("\(testCaseName)/\(methodName).iPhoneSe.png")
+        
+        guard
+            let baseImageData = try? Data(contentsOf: baselineImageUrl),
+            let failImagedata = try? Data(contentsOf: failingImageUrl),
+            let originalImage = UIImage(data: baseImageData),
+            let failureImage = UIImage(data: failImagedata) else {
+                print("ERROR: Image data not found for snapshot")
+                return
             }
+        
+        
+        let diffImage = diff(originalImage, failureImage)
+        
+        if let diffData = diffImage.pngData() {
+            let filename = failureSnapshotDirUrl.appendingPathComponent("\(testCaseName)/\(methodName).DIFF.png") //TODO: use screenSize name in DIFF
+            try? diffData.write(to: filename)
         }
     }
     
+    
+    // MARK: - File and Directory organization
+    
+    private func pathToSnapshotReferenceDir() -> String {
+        guard let path = ProcessInfo.processInfo.environment["SNAPSHOT_REFERENCE_DIR"] else {
+            return "UNKNOWN"
+        }
+        
+        return "\(path)/\(testCaseName)"
+    }
+    
+    private func pathToSnapshotArtifacts() -> String {
+        guard let path = ProcessInfo.processInfo.environment["SNAPSHOT_ARTIFACTS"] else {
+            return "UNKNOWN"
+        }
+        
+        return path
+    }
+    
+    //TODO: use screensize names
     private func cleanUpFailureFolders() {
-        let fileMethodName = self.description.components(separatedBy: " ")
-        if let testCaseName = fileMethodName.first?.sanitized(),
-           let methodName = fileMethodName.last?.sanitized(),
-           let failureSnapshotDirPath = ProcessInfo.processInfo.environment["SNAPSHOT_ARTIFACTS"] {
+        if let failureSnapshotDirPath = ProcessInfo.processInfo.environment["SNAPSHOT_ARTIFACTS"] {
             
-            let failImagePath = "\(failureSnapshotDirPath)/\(testCaseName)/\(methodName).1.png"
+            let failImagePath = "\(failureSnapshotDirPath)/\(testCaseName)/\(methodName).1.png" //TODO: use screensize name
             let diffImagePath = "\(failureSnapshotDirPath)/\(testCaseName)/\(methodName).DIFF.png"
             
             deletefile(atPath: failImagePath)
@@ -82,7 +141,7 @@ class BaseSnapshotTest: XCTestCase {
         }
         
         if let failureSnapshotDirPath = ProcessInfo.processInfo.environment["SNAPSHOT_ARTIFACTS"],
-        !hasContentIn(directory: failureSnapshotDirPath) {
+           !hasContentIn(directory: failureSnapshotDirPath) {
             try? FileManager.default.removeItem(atPath: failureSnapshotDirPath)
         }
     }
@@ -98,17 +157,5 @@ class BaseSnapshotTest: XCTestCase {
         }
         
         return hasContent
-    }
-    
-    private func diff(_ old: UIImage, _ new: UIImage) -> UIImage {
-        let width = max(old.size.width, new.size.width)
-        let height = max(old.size.height, new.size.height)
-        UIGraphicsBeginImageContextWithOptions(CGSize(width: width, height: height), true, 0)
-        new.draw(at: .zero)
-        old.draw(at: .zero, blendMode: .difference, alpha: 1)
-        let differenceImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        
-        return differenceImage
     }
 }
