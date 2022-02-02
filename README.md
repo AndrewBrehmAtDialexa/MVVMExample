@@ -16,10 +16,11 @@
 * pod 'SnapshotTesting' [link](https://cocoapods.org/pods/SnapshotTesting)
 
 ## Unit Testing Setup
-* Create a new Unit Test Target in project (NOTE: The default one that starts with a new project is a UI Test Target).
+* Create a new Unit Test Target (Unit Test Bundle) in project (NOTE: The default one that starts with a new project is a UI Test Target).
 * NOTE: All files created from this point on (unless specified) will be inside the Unit Test Target.
-* Add pods (Quick, Nimble, ViewInspector).
+* Add pods (Quick, Nimble, ViewInspector). [Podfile Example](/Podfile)
 * Create an extension file to extend your SwiftUI Views as Inspectable [EXAMPLE](/MVVMExampleTests/ViewInspector/InspectableView%2BExtensions.swift)
+  * Why?... This allows you to inject a mock into the SwiftUI View. If you don't have any need to inject anything (as seen in the [LandingScreen view](/Shared/Views/Screens/LandingScreen.swift)) then don't add it. But a view that needs injection to test (like the [MovieSearchScreen](/Shared/Views/Screens/MovieSearchScreen.swift))requires it.
 * You may want to copy / use the extension file created in this project to make fetching view attributes easier [EXAMPLE](/MVVMExampleTests/ViewInspector/Inspection%2BExtensions.swift)
 
 ## Unit Testing Usage
@@ -33,10 +34,16 @@
   * -OR- (using the mentioned extension file above) you would call ```someText = uut?.findChild(type: ViewType.Text.self, withId: "myText")```
 * Using ViewInspector you can test interactions (such as ```.tap()```) as well as inspect various attributes (such as ```.attributes().foregroundColor()```)
 
-ViewInspector Considerations
+### ViewInspector Considerations
 * Not ALL SwiftUI APIs are fully covered (...yet)
 * A list of covered and under development APIs / attributes is at ViewInspector's github repo [View Inspector readiness list](https://github.com/nalexn/ViewInspector/blob/master/readiness.md)
+* However, this is not a major factor since its in active development / improvement, and anything that can't currently be tested could be tested via Snapshot Testing (below)
 
+## Snapshot Testing Setup
+* Create a new Snapshot Test Target (Unit Test Bundle)
+* NOTE: All files created from this point on (unless specified) will be inside the Snapshot Test Target.
+* Add pod (SnapshotTesting) [Podfile Example](/Podfile)
+* 
 
 GitIgnore
 * add __Snapshots__/failures
