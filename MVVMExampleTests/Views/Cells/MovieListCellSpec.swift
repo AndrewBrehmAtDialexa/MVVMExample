@@ -73,8 +73,8 @@ class MovieListCellSpec: QuickSpec {
                             }
                         }
                         
-                        it("has a .frame of (width: 100, height: 150, alignment: .leading)") {
-                            expect(try posterAsyncImage?.fixedFrame()).to(equal( (width: 100, height: 150, alignment: .leading) ))
+                        it("has a .frame of (width: 100, height: 150, alignment: .center)") {
+                            expect(try posterAsyncImage?.fixedFrame()).to(equal( (width: 100, height: 150, alignment: .center) ))
                         }
                         
                         it("has an .aspectRation of .fill") {
