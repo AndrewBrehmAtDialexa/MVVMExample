@@ -10,8 +10,11 @@ class BaseSnapshotTest: XCTestCase {
     
     private let devicesToTest: [String : ViewImageConfig] = [
         "iPhoneSe" : .iPhoneSe,
-        "iPhoneX" : .iPhoneX,
-        "iPhone8" : .iPhone8
+//        "iPhoneSe-landscape" : .iPhoneSe(.landscape),
+        "iPhoneXsMax" : .iPhoneXsMax,
+//        "iPhoneXsMax-landscape" : .iPhoneXsMax(.landscape),
+        "iPadPro12_9" : .iPadPro12_9(.portrait),
+//        "iPadPro12_9-landscape" : .iPadPro12_9(.landscape)
     ]
     
     override func setUp() {
@@ -29,16 +32,34 @@ class BaseSnapshotTest: XCTestCase {
     // MARK: - Image Processing
     
     func takeSnapshot<Value>(
-        for uut: UIHostingController<Value>,
+        for view: UIHostingController<Value>,
+        addToNavigationView addNav: Bool = false,
+        clipToComponent clip: Bool = false,
         file: StaticString = #file,
         record recording: Bool = false,
-        timeout: TimeInterval = 0,
+        timeout: TimeInterval = 5, //temp
         line: UInt = #line
     ){
         devicesToTest.forEach { device in
+            
+            var navController: UINavigationController?
+            var componentSize: CGSize?
+            
+            
+            if addNav {
+                navController = UINavigationController()
+                let firstScreen = MockViewController()
+                navController?.viewControllers = [firstScreen, view]
+                firstScreen.setNavTitle()
+            }
+            
+            if clip, let componentWidth = device.value.size?.width {
+                componentSize = CGSize(width: componentWidth, height: view.preferredContentSize.height)
+            }
+            
             let result = verifySnapshot(
-                matching: uut,
-                as: .image(on: device.value),
+                matching: navController ?? view,
+                as: .image(on: device.value, size: componentSize),
                 named: "\(device.key)",
                 record: recording,
                 snapshotDirectory: pathToSnapshotReferenceDir(),
@@ -64,7 +85,7 @@ class BaseSnapshotTest: XCTestCase {
         return differenceImage
     }
     
-    private func saveDiffImage() { //loop through dir failures
+    private func saveDiffImage() {
         
         devicesToTest.forEach { device in
             let deviceName = device.key

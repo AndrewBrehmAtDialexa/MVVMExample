@@ -8,7 +8,7 @@ struct LandingScreen: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text("First Textasfasfsdf")
+                Text("First Text")
                     .padding()
                     .foregroundColor(.red)
                     .id("screenTextA")
