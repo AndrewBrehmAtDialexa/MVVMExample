@@ -20,9 +20,16 @@
 * NOTE: All files created from this point on (unless specified) will be inside the Unit Test Target.
 * Add pods (Quick, Nimble, ViewInspector).
 * Create an extension file to extend your SwiftUI Views as Inspectable [EXAMPLE](/MVVMExampleTests/ViewInspector/InspectableView%2BExtensions.swift)
-* You may want to copy / use the extension file created in this project to make fetching view attributes easier [EXAMPLE](https://github.com/AndrewBrehmAtDialexa/MVVMExample/blob/master/MVVMExampleTests/ViewInspector/Inspection%2BExtensions.swift)
+* You may want to copy / use the extension file created in this project to make fetching view attributes easier [EXAMPLE](/MVVMExampleTests/ViewInspector/Inspection%2BExtensions.swift)
 
-## 
+## Unit Testing Usage
+* ViewInspector has a few different ways to get view children.
+* This example adds a ```.id()``` to each element in the view hierarchy to make it more clear. However, this is not necessary.
+* When creating a variable for an element it must be type cast as an ```InspectableView``` with a type of ```KnownViewType.Type```.
+  * EXAMPLE: 
+
+If you were getting a ```Text``` SwiftUI view you would create the variable as ```var someText: InspectableView<ViewType.Text>?```
+and
 
 
 GitIgnore
