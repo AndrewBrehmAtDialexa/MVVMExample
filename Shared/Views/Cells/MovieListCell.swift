@@ -19,10 +19,11 @@ struct MovieListCell: View {
                 placeholder: {
                     Image(systemName: "film")
                         .resizable()
+                        .padding()
                         .id("placeHolder")
                 }
             )
-                .frame(width: 100, height: 150, alignment: .leading)
+                .frame(width: 100, height: 150, alignment: .center)
                 .aspectRatio(contentMode: .fill)
                 .cornerRadius(5.0)
                 .id("posterAsyncImage")
@@ -39,8 +40,10 @@ struct MovieListCell: View {
             .id("textHolderVStack")
             Spacer()
         }
-        .id("mainHStack")
         .background(Color(.lightGray))
+        .cornerRadius(5.0)
+        .id("mainHStack")
+        
     }
 }
 

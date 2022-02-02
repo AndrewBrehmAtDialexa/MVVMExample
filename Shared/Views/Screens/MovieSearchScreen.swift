@@ -2,13 +2,16 @@ import SwiftUI
 
 struct MovieSearchScreen: View {
     
-    @ObservedObject var movieListScreenViewModel = MovieListScreenViewModel()
+    @ObservedObject var movieListScreenViewModel: MovieListScreenViewModel
     @State var searchTerm: String = ""
     internal var didAppear: ((Self) -> Void)?
     /* NOTE:
      when testing @State, @Binding, etc ViewInspector uses the didAppear() method to gain access to values.
      See MovieSearchScreenSpec for implementation
      */
+    init(withMovieListScreenViewModel model: MovieListScreenViewModel = MovieListScreenViewModel()) {
+        movieListScreenViewModel = model
+    }
     
     var body: some View {
         VStack {
@@ -37,7 +40,16 @@ struct MovieSearchScreen: View {
 #if !TESTING
 struct MovieListScreen_Previews: PreviewProvider {
     static var previews: some View {
-        MovieSearchScreen()
+        let movieListScreenViewModel = MovieListScreenViewModel()
+        movieListScreenViewModel.movies = [
+            MovieViewModel(movie: Movie(title: "Batman Begins", year: "2005", imdbId: "tt0372784", type: "movie", posterUrl: "https://m.media-amazon.com/images/M/MV5BOTY4YjI2N2MtYmFlMC00ZjcyLTg3YjEtMDQyM2ZjYzQ5YWFkXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg")),
+            MovieViewModel(movie: Movie(title: "Batman Begins", year: "2005", imdbId: "tt0372784", type: "movie", posterUrl: "https://m.media-amazon.com/images/M/MV5BOTY4YjI2N2MtYmFlMC00ZjcyLTg3YjEtMDQyM2ZjYzQ5YWFkXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg")),
+            MovieViewModel(movie: Movie(title: "Batman Begins", year: "2005", imdbId: "tt0372784", type: "movie", posterUrl: "https://m.media-amazon.com/images/M/MV5BOTY4YjI2N2MtYmFlMC00ZjcyLTg3YjEtMDQyM2ZjYzQ5YWFkXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg")),
+            MovieViewModel(movie: Movie(title: "Batman Begins", year: "2005", imdbId: "tt0372784", type: "movie", posterUrl: "https://m.media-amazon.com/images/M/MV5BOTY4YjI2N2MtYmFlMC00ZjcyLTg3YjEtMDQyM2ZjYzQ5YWFkXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg")),
+            MovieViewModel(movie: Movie(title: "Batman Begins", year: "2005", imdbId: "tt0372784", type: "movie", posterUrl: "https://m.media-amazon.com/images/M/MV5BOTY4YjI2N2MtYmFlMC00ZjcyLTg3YjEtMDQyM2ZjYzQ5YWFkXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"))
+        ]
+        
+        return MovieSearchScreen(withMovieListScreenViewModel: movieListScreenViewModel)
     }
 }
 #endif

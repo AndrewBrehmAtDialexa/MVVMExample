@@ -49,6 +49,16 @@
                ReferencedContainer = "container:MVVMExample.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "5555A55C27A46525001523C4"
+               BuildableName = "MVVMExampleSnapshotTests.xctest"
+               BlueprintName = "MVVMExampleSnapshotTests"
+               ReferencedContainer = "container:MVVMExample.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -71,6 +81,18 @@
             ReferencedContainer = "container:MVVMExample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "SNAPSHOT_REFERENCE_DIR"
+            value = "$(PROJECT_DIR)/MVVMExampleSnapshotTests/__Snapshots__"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "SNAPSHOT_ARTIFACTS"
+            value = "$(PROJECT_DIR)/MVVMExampleSnapshotTests/__Snapshots__/failures"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"

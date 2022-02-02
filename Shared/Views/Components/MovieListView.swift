@@ -9,10 +9,16 @@ struct MovieListView: View {
     }
     
     var body: some View {
-        List(movieListScreenViewModel.movies, id:\.imdbId) { movieViewModel in
-            MovieListCell(withMovieViewModel: movieViewModel)
-                .id(movieViewModel.imdbId)
+        List {
+            ForEach(movieListScreenViewModel.movies, id:\.imdbId) { movieViewModel in
+                MovieListCell(withMovieViewModel: movieViewModel)
+                    .id(movieViewModel.imdbId)
+            }
+            .listRowBackground(Color.white)
+            .listRowSeparator(.hidden)
+            .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 2, trailing: 0))
         }
+        .listStyle(InsetListStyle())
         .id("movieList")
     }
 }
