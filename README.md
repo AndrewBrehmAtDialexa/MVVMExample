@@ -21,3 +21,9 @@
 * Create an extension file to extend your SwiftUI Views as Inspectable 
 
 
+
+GitIgnore
+* add __Snapshots__/failures
+
+Known Limitations/Issues
+* Landscape snapshots are unreliable. swift-snapshot-testing Dependency is aware of it and this will more than likely improve with future releases.
