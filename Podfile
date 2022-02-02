@@ -16,6 +16,6 @@ target 'MVVMExample (iOS)' do
   target 'MVVMExampleSnapshotTests' do
     inherit! :search_paths
     
-    pod 'SnapshotTesting', '1.9.0'
+    pod 'SnapshotTesting', '~> 1.9.0'
   end
 end
