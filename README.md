@@ -1,6 +1,7 @@
 # MVVMExample
 ## PURPOSE
 * An example SwiftUI project to demo MVVM, Unit Testing, and Snapshot Testing.
+* Demonstrate that SwiftUI views can be tested using Quick / Nimble
 * A resource to pull Base files and extensions for future projects.
 
 ## Dependencies
@@ -19,7 +20,9 @@
 * NOTE: All files created from this point on (unless specified) will be inside the Unit Test Target.
 * Add pods (Quick, Nimble, ViewInspector).
 * Create an extension file to extend your SwiftUI Views as Inspectable [EXAMPLE](https://github.com/AndrewBrehmAtDialexa/MVVMExample/blob/master/MVVMExampleTests/ViewInspector/InspectableView%2BExtensions.swift)
+* You may want to copy / use the extension file created in this project to make fetching view attributes easier [EXAMPLE](https://github.com/AndrewBrehmAtDialexa/MVVMExample/blob/master/MVVMExampleTests/ViewInspector/Inspection%2BExtensions.swift)
 
+## 
 
 
 GitIgnore
