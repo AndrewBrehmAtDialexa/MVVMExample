@@ -18,7 +18,7 @@
 * Create a new Unit Test Target in project (NOTE: The default one that starts with a new project is a UI Test Target).
 * NOTE: All files created from this point on (unless specified) will be inside the Unit Test Target.
 * Add pods (Quick, Nimble, ViewInspector).
-* Create an extension file to extend your SwiftUI Views as Inspectable 
+* Create an extension file to extend your SwiftUI Views as Inspectable [EXAMPLE](https://github.com/AndrewBrehmAtDialexa/MVVMExample/blob/master/MVVMExampleTests/ViewInspector/InspectableView%2BExtensions.swift)
 
 
 
