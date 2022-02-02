@@ -6,5 +6,8 @@ Dependencies (in UnitTest target) Using CocoaPods (NOTE: these dependencies are 
 * pod 'Nimble' (Quick and Nimble are used for writing easily readable tests very fast)
 * pod 'ViewInspector' (allows UnitTests to inspect and test attributes and methods on SwiftUI views and their children)
 
+GitIgnore
+* add __Snapshots__/failures
+
 Known Limitations/Issues
 * Landscape snapshots are unreliable. swift-snapshot-testing Dependency is aware of it and this will more than likely improve with future releases.
