@@ -27,19 +27,41 @@
 ## Unit Testing Usage (basic)
 * ViewInspector has a few different ways to get view children.
 * This example adds a ```.id()``` to each element in the view hierarchy to make it more clear. However, this is not necessary.
-* When creating a variable for an element it must be type cast as an ```InspectableView``` with a type of ```KnownViewType.Type```.
+* When creating a variable for an element it must be type cast as an `InspectableView` with a type of `KnownViewType.Type`.
   * EXAMPLE: 
   * 
-  * If you were getting a ```Text``` SwiftUI view (with an ```.id("myText")```you would create the variable as ```var someText: InspectableView<ViewType.Text>?```.
-  * You would instantiate the test variable as ```someText = try uut?.body.inspect().find(ViewType.Text.self, relation: .child, where: { try $0.id() as! String == "myText"})```
-  * -OR- (using the mentioned extension file above) you would call ```someText = uut?.findChild(type: ViewType.Text.self, withId: "myText")```
-* Using ViewInspector you can test interactions (such as ```.tap()```) as well as inspect various attributes (such as ```.attributes().foregroundColor()```)
+  * If you were getting a `Text` SwiftUI view (with an `.id("myText")`you would create the variable as `var someText: InspectableView<ViewType.Text>?`.
+  * You would instantiate the test variable as `someText = try uut?.body.inspect().find(ViewType.Text.self, relation: .child, where: { try $0.id() as! String == "myText"})`
+  * -OR- (using the mentioned extension file above) you would call `someText = uut?.findChild(type: ViewType.Text.self, withId: "myText")`
+* Using ViewInspector you can test interactions (such as `.tap()`) as well as inspect various attributes (such as `.attributes().foregroundColor()`)
 
-## Unit Testing Usage (Injection)
-As mentioned in the setup above, to alter @State or @Binding vars in a View you have to make it conform to the ViewInspector's ```Inspectable``` Protocol.
-Injection Process:
-* Add the View as an extension using Inspectable Protocol ```extension MovieListView: Inspectable { }```
-* Inside that view
+## Unit Testing Usage (Making it Inspectable)
+If you ever see the error 
+> Type '*** View Name ***' does not conform to protocol 'Inspectable'
+* Add the View as an extension using Inspectable Protocol `extension MovieListView: Inspectable { }`
+
+As mentioned in the setup above, to alter @State or @Binding vars in a View you have to make it conform to the ViewInspector's `Inspectable` Protocol.
+Process:
+* In the View add a var at the top of `internal var didAppear: ((Self) -> Void)?` [see MovieSearchScreen](/Shared/Views/Screens/MovieSearchScreen.swift)
+  * When testing @State, @Binding, etc ViewInspector uses the didAppear() method to gain access to values.
+* In the Test (Spec) file instantiate the view your are testing (uut) like
+```
+var uut: MyCustomView? 
+var myCustomViewModel: MockMyCustomViewModel?
+
+beforeEach {
+    var myCustomView = MyCustomView()
+    let _ = myCustomView.on(\.didAppear) { view in
+        uut = try? view.actualView()
+        myCustomViewModel = MockMyCustomViewModel()
+        uut?.myCustomViewModel = myCustomViewModel!
+    }
+
+    ViewHosting.host(view: myCustomView)
+}
+
+```
+* Now you will be able to inject into the `@State` vars
 
 ### ViewInspector Considerations
 * Not ALL SwiftUI APIs are fully covered (...yet)
