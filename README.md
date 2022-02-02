@@ -27,9 +27,15 @@
 * This example adds a ```.id()``` to each element in the view hierarchy to make it more clear. However, this is not necessary.
 * When creating a variable for an element it must be type cast as an ```InspectableView``` with a type of ```KnownViewType.Type```.
   * EXAMPLE: 
+  * 
+  * If you were getting a ```Text``` SwiftUI view (with an ```.id("myText")```you would create the variable as ```var someText: InspectableView<ViewType.Text>?```.
+  * You would instantiate the test variable as ```someText = try uut?.body.inspect().find(ViewType.Text.self, relation: .child, where: { try $0.id() as! String == "myText"})```
+  * -OR- (using the mentioned extension file above) you would call ```someText = uut?.findChild(type: ViewType.Text.self, withId: "myText")```
+* Using ViewInspector you can test interactions (such as ```.tap()```) as well as inspect various attributes (such as ```.attributes().foregroundColor()```)
 
-If you were getting a ```Text``` SwiftUI view you would create the variable as ```var someText: InspectableView<ViewType.Text>?```
-and
+ViewInspector Considerations
+* Not ALL SwiftUI APIs are fully covered (...yet)
+* A list of covered and under development APIs / attributes is at ViewInspector's github repo [View Inspector readiness list](https://github.com/nalexn/ViewInspector/blob/master/readiness.md)
 
 
 GitIgnore
