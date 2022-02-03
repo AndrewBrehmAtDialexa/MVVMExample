@@ -5,7 +5,7 @@
 * A resource to pull Base files and extensions for future projects.
 
 ## Dependencies
- (NOTE: these dependencies are also available via Carthage and Swift Package Manager)
+> NOTE: these dependencies are also available via Carthage and Swift Package Manager
 
 ### In UnitTest target (Using CocoaPods) 
 * pod 'Quick' [link](https://cocoapods.org/pods/Quick)
@@ -17,7 +17,7 @@
 
 ## Unit Testing Setup
 * Create a new Unit Test Target (Unit Test Bundle) in project (NOTE: The default one that starts with a new project is a UI Test Target).
-* NOTE: All files created from this point on (unless specified) will be inside the Unit Test Target.
+* > NOTE: All files created from this point on (unless specified) will be inside the Unit Test Target.
 * Add pods (Quick, Nimble, ViewInspector). [Podfile Example](/Podfile)
 * Create an extension file to extend your SwiftUI Views as Inspectable [EXAMPLE](/MVVMExampleTests/ViewInspector/InspectableView%2BExtensions.swift)
   * Why?... This allows you to inject a mock data into @State, @Binding, etc. If you don't have any need to alter these @ vars (as seen in the [LandingScreen](/Shared/Views/Screens/LandingScreen.swift)) then don't add it. But a view that needs to alter @ vars to test (like the [MovieSearchScreen](/Shared/Views/Screens/MovieSearchScreen.swift))requires it.
@@ -71,10 +71,28 @@ beforeEach {
 * However, this is not a major factor since its in active development / improvement, and anything that can't currently be tested could be tested via Snapshot Testing (below)
 
 ## Snapshot Testing Setup
+> NOTE: This implementation uses the SnapshotTesting dependency PLUS a custom implementation using a BaseSnapshotTest class. What this does is explained below.
 * Create a new Snapshot Test Target (Unit Test Bundle)
-* NOTE: All files created from this point on (unless specified) will be inside the Snapshot Test Target.
+* > NOTE: All files created from this point on (unless specified) will be inside the Snapshot Test Target.
 * Add pod (SnapshotTesting) [Podfile Example](/Podfile)
-* 
+* Add Scheme Environment Variables for the Snapshot Test files
+  * Go to your Scheme > Run > Arguments
+  * Under Environment Variables add:
+    * SNAPSHOT_REFERENCE_DIR (with a value of) $(PROJECT_DIR)/{Your SnapshotTest target}/__Snapshots__
+    * SNAPSHOT_ARTIFACTS (with a value of) $(PROJECT_DIR)/{Your SnapshotTest target}/__Snapshots__/failures
+    * ![Scheme Image](ReadMeImages/schemeEnvironmentalVars.jpg)
+* Copy all files from the Base folder [link](/Base)
+  * [BaseSnapshotTest](/Base/BaseSnapshotTest.swift)
+  * [Strings+extensions](Base/Strings%2Bextensions.swift)
+* Create a .swift test file that subclasses `BaseSnapshotTest`
+* create your test method
+  * instantiate the view you want to test using `UIHostingController`
+    * `let uut = UIHostingController<MyCustomView>(rootView:MyCustomView())`
+  * call `takeSnapshot(for:)`
+    * `takeSnapshot(for: uut)`
+  
+
+
 
 GitIgnore
 * add __Snapshots__/failures
