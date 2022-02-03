@@ -8,6 +8,13 @@ class BaseSnapshotTest: XCTestCase {
     lazy var testCaseName = fileMethodName.first?.sanitized() ?? "UNKNOWN"
     lazy var methodName = fileMethodName.last?.sanitized() ?? "UNKNOWN"
     
+    /*
+     Place the devices you want to test here.
+     The String will be the name that appears on the snapshot file.
+     The ViewImageConfig is the device type.
+     Phones are defaulted to .portrait mode.
+     iPads are defaulted to .landscape mode
+     */
     private let devicesToTest: [String : ViewImageConfig] = [
         "iPhoneSe" : .iPhoneSe,
         "iPhoneXsMax" : .iPhoneXsMax,
