@@ -28,8 +28,7 @@
 * ViewInspector has a few different ways to get view children.
 * This example adds a ```.id()``` to each element in the view hierarchy to make it more clear. However, this is not necessary.
 * When creating a variable for an element it must be type cast as an `InspectableView` with a type of `KnownViewType.Type`.
-  * EXAMPLE: 
-  * 
+  ### EXAMPLE:
   * If you were getting a `Text` SwiftUI view (with an `.id("myText")`you would create the variable as `var someText: InspectableView<ViewType.Text>?`.
   * You would instantiate the test variable as `someText = try uut?.body.inspect().find(ViewType.Text.self, relation: .child, where: { try $0.id() as! String == "myText"})`
   * -OR- (using the mentioned extension file above) you would call `someText = uut?.findChild(type: ViewType.Text.self, withId: "myText")`
@@ -38,13 +37,16 @@
 ## Unit Testing Usage (Making it Inspectable)
 If you ever see the error 
 > Type '*** View Name ***' does not conform to protocol 'Inspectable'
-* Add the View as an extension using Inspectable Protocol `extension MovieListView: Inspectable { }`
+* Add the View as an extension using Inspectable Protocol `extension MyCustomView: Inspectable { }`
 
 As mentioned in the setup above, to alter @State or @Binding vars in a View you have to make it conform to the ViewInspector's `Inspectable` Protocol.
-Process:
-* In the View add a var at the top of `internal var didAppear: ((Self) -> Void)?` [see MovieSearchScreen](/Shared/Views/Screens/MovieSearchScreen.swift)
-  * When testing @State, @Binding, etc ViewInspector uses the didAppear() method to gain access to values.
-* In the Test (Spec) file instantiate the view your are testing (uut) like
+### Process:
+* In the View (see [MovieSearchScreen](/Shared/Views/Screens/MovieSearchScreen.swift))
+  * add a var at the top of `internal var didAppear: ((Self) -> Void)?` 
+  * > NOTE: When testing @State, @Binding, etc ViewInspector uses the didAppear() method to gain access to values.
+  * add that method to the `.onAppear` method call of the View's body var
+    * `.onAppear { self.didAppear?(self) }`
+* In the Test (Spec) file instantiate the view you are testing (uut)
 ```
 var uut: MyCustomView? 
 var myCustomViewModel: MockMyCustomViewModel?
@@ -63,7 +65,7 @@ beforeEach {
 ```
 * Now you will be able to inject into the `@State` vars
   * ViewInspector uses the ViewHosting method (in combination with `.didAppear`) to access @State, @Binding, etc in the `actualView()`. This allows testing of changes to @State vars.
-  * Initializing the View using ViewHosting is not needed unless it has @State vars.
+  * > NOTE: Initializing the View using ViewHosting is not needed unless it has @State vars.
 
 ### ViewInspector Considerations
 * Not ALL SwiftUI APIs are fully covered (...yet)
