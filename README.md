@@ -94,15 +94,24 @@ beforeEach {
 
 ## Snapshot Flow: BaseSnapshotTest - what this does
 * Test is Run
-* BaseSnapshotTest > setUp()
+* BaseSnapshotTest > `setUp()`
   * This goes through and deletes the files for that specific snapshot. This is so that if the issue was solved and the snapshot matches the baseline there isn't an extra file sitting around.
 * Test calls `takeSnapshot(for:)` (a custom implementation of SnapshotTesting > `verifySnapshot()`)
   * Loops through the `devicesToTest` (the array with your specified devices to snapshot)
   * If no baseline snapshot exists, SnapshotTesting will automatically create one (see SnapshotTesting [documentation](https://cocoapods.org/pods/SnapshotTesting#usage))
-  * Baseline snapshots are placed into the `SNAPSHOT_REFERENCE_DIR` var set up above, into a folder named `__Snapshots__`.
+  * Baseline snapshots are placed into a folder using the `SNAPSHOT_REFERENCE_DIR` var set up above, named `__Snapshots__`.
     * Each test file is created as a folder, with each individual test given an image with this naming convention
       * {methodName}.{deviceName}.png
-  *   
+      * ![Baseline Folder Structure](ReadMeImages/baselineFolderStructure.jpg)
+* If there is a FAILURE...
+  * BaseSnapshotTest > `record(_ issue:)` (this is an overriden XCTestCase method)
+  * BaseSnapshotTest > `saveDiffImage()`
+    * Failure snapshots are placed into a folder using the 'SNAPSHOT_ARTIFACTS' var set up above
+    * Similar to the Baseline snapshots, each test file is created as a folder, with each individual failure given an image with this naming convention
+      * {methodName}.{deviceName}.png
+    * Along with a DIFF file, showing the difference between the baseline image and the failure image, with this naming convention
+      * {methodName}.{deviceName}-DIFF.png
+      * ![Failure Folder Structure](ReadMeImages/failureFolderStructure.jpg)
 
 
 
