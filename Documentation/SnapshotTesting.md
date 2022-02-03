@@ -15,7 +15,7 @@
   * Under Environment Variables add:
     * SNAPSHOT_REFERENCE_DIR (with a value of) $(PROJECT_DIR)/{Your SnapshotTest target}/__Snapshots__
     * SNAPSHOT_ARTIFACTS (with a value of) $(PROJECT_DIR)/{Your SnapshotTest target}/__Snapshots__/failures
-    * ![Scheme Image](Documentation/images/schemeEnvironmentalVars.jpg)
+    * ![Scheme Image](images/schemeEnvironmentalVars.jpg)
   * > NOTE: you do not need to have the Snapshots placed inside the Snapshot Test folder if you do not want. It can be placed top level, or wherever you want. Just make sure that the path to the `__Snapshots__` dir is the same between the two environmental vars.
 * Copy all files from the Base folder [link](MVVMExampleSnapshotTests/Base)
   * [BaseSnapshotTest](MVVMExampleSnapshotTests/Base/BaseSnapshotTest.swift)
@@ -39,7 +39,7 @@
   * Baseline snapshots are placed into a folder using the `SNAPSHOT_REFERENCE_DIR` var set up above, named `__Snapshots__`.
     * Each test file is created as a folder, with each individual test given an image with this naming convention
       * {methodName}.{deviceName}.png
-      * ![Baseline Folder Structure](Documentation/images/baselineFolderStructure.jpg)
+      * ![Baseline Folder Structure](images/baselineFolderStructure.jpg)
 * If there IS a FAILURE...
   * BaseSnapshotTest > `record(_ issue:)` (this is an overriden XCTestCase method called when XCTestCase fails) calls `saveDiffImage()`
     * Failure snapshots are placed into a folder using the 'SNAPSHOT_ARTIFACTS' var set up above
@@ -47,7 +47,7 @@
       * {methodName}.{deviceName}.png
     * Along with a DIFF file, showing the difference between the baseline image and the failure image, with this naming convention
       * {methodName}.{deviceName}-DIFF.png
-      * ![Failure Folder Structure](Documentation/images/failureFolderStructure.jpg)
+      * ![Failure Folder Structure](images/failureFolderStructure.jpg)
 * If there is NOT a FAILURE
   * BaseSnapshotTest has cleaned out all the failure files and folders leaving a clean Snapshot folder with only baseline images that can be committed.
 
@@ -58,11 +58,11 @@
     * Back button placement
     * Any `UINavigationBar.appearance()` settings (see [MVVMExampleApp](Shared/MVVMExampleApp.swift))
     * Example taken from [MovieSearchScreenSnapshotTest](MVVMExampleSnapshotTests/__Snapshots__/MovieSearchScreenSnapshotTest/testListWithMovies.iPhoneSe.png)
-    * <img src="ReadMeImages/snapshotNavigationBar.jpg" width="500">
+    * <img src="images/snapshotNavigationBar.jpg" width="500">
   * `clipToComponent`: Reduces the size of the snapshot to fit the actual component
     * Reduces the overal filesize and contains the component to its size as it is loaded in the dictated screen size
     * Example taken from [MovieListCellSnapshotTest](MVVMExampleSnapshotTests/__Snapshots__/MovieListCellSnapshotTest/testMovieListCell.iPhoneSe.png)
-    * <img src="ReadMeImages/componentClipping.jpg" width="400">
+    * <img src="images/componentClipping.jpg" width="400">
 
 ## Snapshot: Injecting Mock Data
 * Provided that your Views are set up for dependency injection, it is rather simple.
