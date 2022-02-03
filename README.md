@@ -71,7 +71,7 @@ beforeEach {
 * However, this is not a major factor since its in active development / improvement, and anything that can't currently be tested could be tested via Snapshot Testing (below)
 
 ## Snapshot Testing Setup
-> NOTE: This implementation uses the SnapshotTesting dependency PLUS a custom implementation using a BaseSnapshotTest class. What this does is explained below.
+> NOTE: This implementation uses the SnapshotTesting dependency PLUS a custom implementation using a BaseSnapshotTest class. [What this does](README.md#snapshot-flow-basesnapshottest---what-this-does) is explained below.
 * Create a new Snapshot Test Target (Unit Test Bundle)
 * > NOTE: All files created from this point on (unless specified) will be inside the Snapshot Test Target.
 * Add pod (SnapshotTesting) [Podfile Example](/Podfile)
@@ -84,15 +84,39 @@ beforeEach {
 * Copy all files from the Base folder [link](/Base)
   * [BaseSnapshotTest](/Base/BaseSnapshotTest.swift)
   * [Strings+extensions](Base/Strings%2Bextensions.swift)
+* in your `.gitIgnore` add __Snapshots__/failures (this prevents accidental upload of failure files)
+* In BaseSnapshotTest enter into `devicesToTest` var the devices you want to snapshot. 
 * Create a .swift test file that subclasses `BaseSnapshotTest`
 * create your test method
   * instantiate the view you want to test using `UIHostingController`
     * `let uut = UIHostingController<MyCustomView>(rootView:MyCustomView())`
-  * call `takeSnapshot(for:)`
-    * `takeSnapshot(for: uut)`
-  
+  * call `takeSnapshot(for: uut)`
+
+## Snapshot Flow: BaseSnapshotTest - what this does
+* Test is Run
+* BaseSnapshotTest > `setUp()`
+  * This goes through and deletes the files for that specific snapshot. This is so that if the issue was solved and the snapshot matches the baseline there isn't an extra file sitting around.
+* Test calls `takeSnapshot(for:)` (a custom implementation of SnapshotTesting > `verifySnapshot()`)
+  * Loops through the `devicesToTest` (the array with your specified devices to snapshot)
+  * If no baseline snapshot exists, SnapshotTesting will automatically create one (see SnapshotTesting [documentation](https://cocoapods.org/pods/SnapshotTesting#usage))
+  * Baseline snapshots are placed into a folder using the `SNAPSHOT_REFERENCE_DIR` var set up above, named `__Snapshots__`.
+    * Each test file is created as a folder, with each individual test given an image with this naming convention
+      * {methodName}.{deviceName}.png
+      * ![Baseline Folder Structure](ReadMeImages/baselineFolderStructure.jpg)
+* If there is a FAILURE...
+  * BaseSnapshotTest > `record(_ issue:)` (this is an overriden XCTestCase method)
+  * BaseSnapshotTest > `saveDiffImage()`
+    * Failure snapshots are placed into a folder using the 'SNAPSHOT_ARTIFACTS' var set up above
+    * Similar to the Baseline snapshots, each test file is created as a folder, with each individual failure given an image with this naming convention
+      * {methodName}.{deviceName}.png
+    * Along with a DIFF file, showing the difference between the baseline image and the failure image, with this naming convention
+      * {methodName}.{deviceName}-DIFF.png
+      * ![Failure Folder Structure](ReadMeImages/failureFolderStructure.jpg)
 
 
+
+
+### argument overrides TODO`
 
 GitIgnore
 * add __Snapshots__/failures
