@@ -62,6 +62,8 @@ beforeEach {
 
 ```
 * Now you will be able to inject into the `@State` vars
+  * ViewInspector uses the ViewHosting method (in combination with `.didAppear`) to access @State, @Binding, etc in the `actualView()`. This allows testing of changes to @State vars.
+  * Initializing the View using ViewHosting is not needed unless it has @State vars.
 
 ### ViewInspector Considerations
 * Not ALL SwiftUI APIs are fully covered (...yet)
