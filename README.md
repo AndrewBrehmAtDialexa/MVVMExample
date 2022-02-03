@@ -122,9 +122,11 @@ beforeEach {
     * `.navigationTitle()` attribute set on the view
     * Back button placement
     * Any `UINavigationBar.appearance()` settings (see [MVVMExampleApp](Shared/MVVMExampleApp.swift))
+    * Example taken from [MovieSearchScreenSnapshotTest](MVVMExampleSnapshotTests/__Snapshots__/MovieSearchScreenSnapshotTest/testListWithMovies.iPhoneSe.png)
     * <img src="ReadMeImages/snapshotNavigationBar.jpg" width="500">
   * clipToComponent: Reduces the size of the snapshot to fit the actual component
     * Reduces the overal filesize and contains the component to its size as it is loaded in the dictated screen size
+    * Example taken from [MovieListCellSnapshotTest](MVVMExampleSnapshotTests/__Snapshots__/MovieListCellSnapshotTest/testMovieListCell.iPhoneSe.png)
     * <img src="ReadMeImages/componentClipping.jpg" width="400">
 
 ## Known Limitations/Issues
