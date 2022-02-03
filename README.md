@@ -125,13 +125,7 @@ beforeEach {
     * <img src="ReadMeImages/snapshotNavigationBar.jpg" width="500">
   * clipToComponent: Reduces the size of the snapshot to fit the actual component
     * Reduces the overal filesize and contains the component to its size as it is loaded in the dictated screen size
-    * <img src="ReadMeImages/componentClipping.jpg" width="200">
+    * <img src="ReadMeImages/componentClipping.jpg" width="400">
 
-
-### argument overrides TODO`
-
-GitIgnore
-* add __Snapshots__/failures
-
-Known Limitations/Issues
-* Landscape snapshots are unreliable. swift-snapshot-testing Dependency is aware of it and this will more than likely improve with future releases.
+## Known Limitations/Issues
+* Landscape snapshots are unreliable. SnapshotTesting Dependency is aware of it and this will more than likely improve with future releases.
