@@ -84,7 +84,7 @@ beforeEach {
 * Copy all files from the Base folder [link](/Base)
   * [BaseSnapshotTest](/Base/BaseSnapshotTest.swift)
   * [Strings+extensions](Base/Strings%2Bextensions.swift)
-* in your `.gitIgnore` add __Snapshots__/failures (this prevents accidental upload of failure files)
+* in your `.gitIgnore` add `__Snapshots__/failures` (this prevents accidental upload of failure files)
 * In BaseSnapshotTest enter into `devicesToTest` var the devices you want to snapshot. 
 * Create a .swift test file that subclasses `BaseSnapshotTest`
 * create your test method
@@ -93,6 +93,7 @@ beforeEach {
   * call `takeSnapshot(for: uut)`
 
 ## Snapshot Flow: BaseSnapshotTest - what this does
+> BaseSnapshotTest TL;DR: SnapshotTesting puts all baseline snapshots into the folder of the Test file that ran it (as well as the failures). This is a bit unorganized. BaseSnapshotTest aggregates everything into ONE folder (dictated by the `SNAPSHOT_REFERENCE_DIR` environmental var set earlier. It ALSO generates the DIFF between the baseline image and the faliure image and gives you access to it. SnapshotTesting generates these, but places them in inconvenient locations. BaseSnapshotTest gathers everything together for simple usage.
 * Test is Run
 * BaseSnapshotTest > `setUp()`
   * This goes through and deletes the files for that specific snapshot. This is so that if the issue was solved and the snapshot matches the baseline there isn't an extra file sitting around.
@@ -103,7 +104,7 @@ beforeEach {
     * Each test file is created as a folder, with each individual test given an image with this naming convention
       * {methodName}.{deviceName}.png
       * ![Baseline Folder Structure](ReadMeImages/baselineFolderStructure.jpg)
-* If there is a FAILURE...
+* If there IS a FAILURE...
   * BaseSnapshotTest > `record(_ issue:)` (this is an overriden XCTestCase method)
   * BaseSnapshotTest > `saveDiffImage()`
     * Failure snapshots are placed into a folder using the 'SNAPSHOT_ARTIFACTS' var set up above
@@ -112,8 +113,19 @@ beforeEach {
     * Along with a DIFF file, showing the difference between the baseline image and the failure image, with this naming convention
       * {methodName}.{deviceName}-DIFF.png
       * ![Failure Folder Structure](ReadMeImages/failureFolderStructure.jpg)
+* If there is NOT a FAILURE
+  * BaseSnapshotTest has cleaned out all the failure files and folders leaving a clean Snapshot folder with only baseline images that can be committed.
 
-
+## Snapshot quality of life additions
+* BaseSnapshotTest > `takeSnapshot(for:)` has a few arguments that can be overriden. Two have been added that go beyond the SnapshotTesting `verifySnapshot` method
+  * addToNavigationView: Adds your testing view to a UINavigationController as the SECOND viewcontroller. This allows you to see:
+    * `.navigationTitle()` attribute set on the view
+    * Back button placement
+    * Any `UINavigationBar.appearance()` settings (see [MVVMExampleApp](Shared/MVVMExampleApp.swift))
+    * ![Navigation Bar example](ReadMeImages/snapshotNavigationBar.jpg)
+  * clipToComponent: Reduces the size of the snapshot to fit the actual component
+    * Reduces the overal filesize and contains the component to its size as it is loaded in the dictated screen size
+    * ![Navigation Bar example](ReadMeImages/componentClipping.jpg)
 
 
 ### argument overrides TODO`
