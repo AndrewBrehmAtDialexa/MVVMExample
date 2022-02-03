@@ -6,4 +6,4 @@
 
 ## Documentation
 * [Unit Testing](Documentation/UnitTesting.md)
-* [Snapshot Testing](Documentation/UnitTesting.md)
+* [Snapshot Testing](Documentation/SnapshotTesting.md)
