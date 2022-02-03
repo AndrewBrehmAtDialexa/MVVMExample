@@ -10,11 +10,8 @@ class BaseSnapshotTest: XCTestCase {
     
     private let devicesToTest: [String : ViewImageConfig] = [
         "iPhoneSe" : .iPhoneSe,
-//        "iPhoneSe-landscape" : .iPhoneSe(.landscape),
         "iPhoneXsMax" : .iPhoneXsMax,
-//        "iPhoneXsMax-landscape" : .iPhoneXsMax(.landscape),
-        "iPadPro12_9" : .iPadPro12_9(.portrait),
-//        "iPadPro12_9-landscape" : .iPadPro12_9(.landscape)
+        "iPadPro12_9" : .iPadPro12_9(.portrait)
     ]
     
     override func setUp() {
@@ -37,7 +34,7 @@ class BaseSnapshotTest: XCTestCase {
         clipToComponent clip: Bool = false,
         file: StaticString = #file,
         record recording: Bool = false,
-        timeout: TimeInterval = 5, //temp
+        timeout: TimeInterval = 0,
         line: UInt = #line
     ){
         devicesToTest.forEach { device in
