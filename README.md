@@ -83,22 +83,23 @@ beforeEach {
     * SNAPSHOT_REFERENCE_DIR (with a value of) $(PROJECT_DIR)/{Your SnapshotTest target}/__Snapshots__
     * SNAPSHOT_ARTIFACTS (with a value of) $(PROJECT_DIR)/{Your SnapshotTest target}/__Snapshots__/failures
     * ![Scheme Image](ReadMeImages/schemeEnvironmentalVars.jpg)
-* Copy all files from the Base folder [link](/Base)
-  * [BaseSnapshotTest](/Base/BaseSnapshotTest.swift)
-  * [Strings+extensions](Base/Strings%2Bextensions.swift)
-* in your `.gitIgnore` add `__Snapshots__/failures` (this prevents accidental upload of failure files)
+  * > NOTE: you do not need to have the Snapshots placed inside the Snapshot Test folder if you do not want. It can be placed top level, or wherever you want. Just make sure that the path to the `__Snapshots__` dir is the same between the two environmental vars.
+* Copy all files from the Base folder [link](MVVMExampleSnapshotTests/Base)
+  * [BaseSnapshotTest](MVVMExampleSnapshotTests/Base/BaseSnapshotTest.swift)
+  * [Strings+extensions](MVVMExampleSnapshotTests/Base/Strings%2Bextensions.swift)
+* In your `.gitIgnore` add `__Snapshots__/failures` (this prevents accidental upload of failure files)
 * In BaseSnapshotTest enter into `devicesToTest` var the devices you want to snapshot. 
 * Create a .swift test file that subclasses `BaseSnapshotTest`
-* create your test method
-  * instantiate the view you want to test using `UIHostingController`
+* Create your test method
+  * Instantiate the view you want to test using `UIHostingController`
     * `let uut = UIHostingController<MyCustomView>(rootView:MyCustomView())`
-  * call `takeSnapshot(for: uut)`
+  * Call `takeSnapshot(for: uut)`
 
 ## Snapshot Flow: BaseSnapshotTest - what this does
 > BaseSnapshotTest TL;DR: SnapshotTesting puts all baseline snapshots into the folder of the Test file that ran it (as well as the failures). This is a bit unorganized. BaseSnapshotTest aggregates everything into ONE folder (dictated by the `SNAPSHOT_REFERENCE_DIR` environmental var set earlier. It ALSO generates the DIFF between the baseline image and the faliure image and gives you access to it. SnapshotTesting generates these, but places them in inconvenient locations. BaseSnapshotTest gathers everything together for simple usage.
 * Test is Run
 * BaseSnapshotTest > `setUp()`
-  * This goes through and deletes the files for that specific snapshot. This is so that if the issue was solved and the snapshot matches the baseline there isn't an extra file sitting around.
+  * This goes through and deletes the failure and diff files for that specific snapshot. This is so that if the issue was solved and the snapshot matches the baseline there isn't an extra file sitting around.
 * Test calls `takeSnapshot(for:)` (a custom implementation of SnapshotTesting > `verifySnapshot()`)
   * Loops through the `devicesToTest` (the array with your specified devices to snapshot)
   * If no baseline snapshot exists, SnapshotTesting will automatically create one (see SnapshotTesting [documentation](https://cocoapods.org/pods/SnapshotTesting#usage))
@@ -107,8 +108,7 @@ beforeEach {
       * {methodName}.{deviceName}.png
       * ![Baseline Folder Structure](ReadMeImages/baselineFolderStructure.jpg)
 * If there IS a FAILURE...
-  * BaseSnapshotTest > `record(_ issue:)` (this is an overriden XCTestCase method)
-  * BaseSnapshotTest > `saveDiffImage()`
+  * BaseSnapshotTest > `record(_ issue:)` (this is an overriden XCTestCase method called when XCTestCase fails) calls `saveDiffImage()`
     * Failure snapshots are placed into a folder using the 'SNAPSHOT_ARTIFACTS' var set up above
     * Similar to the Baseline snapshots, each test file is created as a folder, with each individual failure given an image with this naming convention
       * {methodName}.{deviceName}.png
@@ -120,13 +120,13 @@ beforeEach {
 
 ## Snapshot quality of life additions
 * BaseSnapshotTest > `takeSnapshot(for:)` has a few arguments that can be overriden. Two have been added that go beyond the SnapshotTesting `verifySnapshot` method
-  * addToNavigationView: Adds your testing view to a UINavigationController as the SECOND viewcontroller. This allows you to see:
+  * `addToNavigationView`: Adds your testing view to a UINavigationController as the SECOND viewcontroller. This allows you to see:
     * `.navigationTitle()` attribute set on the view
     * Back button placement
     * Any `UINavigationBar.appearance()` settings (see [MVVMExampleApp](Shared/MVVMExampleApp.swift))
     * Example taken from [MovieSearchScreenSnapshotTest](MVVMExampleSnapshotTests/__Snapshots__/MovieSearchScreenSnapshotTest/testListWithMovies.iPhoneSe.png)
     * <img src="ReadMeImages/snapshotNavigationBar.jpg" width="500">
-  * clipToComponent: Reduces the size of the snapshot to fit the actual component
+  * `clipToComponent`: Reduces the size of the snapshot to fit the actual component
     * Reduces the overal filesize and contains the component to its size as it is loaded in the dictated screen size
     * Example taken from [MovieListCellSnapshotTest](MVVMExampleSnapshotTests/__Snapshots__/MovieListCellSnapshotTest/testMovieListCell.iPhoneSe.png)
     * <img src="ReadMeImages/componentClipping.jpg" width="400">
