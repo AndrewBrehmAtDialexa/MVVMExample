@@ -1,28 +1,32 @@
 PODS:
+  - Mocker (2.5.5)
   - Nimble (9.2.1)
   - Quick (4.0.0)
   - SnapshotTesting (1.9.0)
   - ViewInspector (0.9.1)
 
 DEPENDENCIES:
+  - Mocker (~> 2.5.5)
   - Nimble (~> 9.2.1)
   - Quick (~> 4.0.0)
-  - SnapshotTesting (= 1.9.0)
+  - SnapshotTesting (~> 1.9.0)
   - ViewInspector (~> 0.9.0)
 
 SPEC REPOS:
   trunk:
+    - Mocker
     - Nimble
     - Quick
     - SnapshotTesting
     - ViewInspector
 
 SPEC CHECKSUMS:
+  Mocker: 8c731a8104962f246cadf2b02556218e9edc1390
   Nimble: e7e615c0335ee4bf5b0d786685451e62746117d5
   Quick: 6473349e43b9271a8d43839d9ba1c442ed1b7ac4
   SnapshotTesting: 6141c48b6aa76ead61431ca665c14ab9a066c53b
   ViewInspector: 68842776f07fbf186713689d4846e54f32ccbffb
 
-PODFILE CHECKSUM: 47a7ff23af742d2967794895d25f1c516cd573e5
+PODFILE CHECKSUM: 89ab5483662bfba201e85cb38e0b41ee6c52cbac
 
 COCOAPODS: 1.11.2

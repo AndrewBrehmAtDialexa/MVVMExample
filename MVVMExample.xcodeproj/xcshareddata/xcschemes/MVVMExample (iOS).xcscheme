@@ -59,6 +59,16 @@
                ReferencedContainer = "container:MVVMExample.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "55C0700C27AD7981002AF5A7"
+               BuildableName = "MVVMExampleSnapshotingTests.xctest"
+               BlueprintName = "MVVMExampleSnapshotingTests"
+               ReferencedContainer = "container:MVVMExample.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

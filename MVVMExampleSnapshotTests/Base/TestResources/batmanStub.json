@@ -1,0 +1,12 @@
+{
+	"Search": [{
+		"Title": "Batman Begins",
+		"Year": "2005",
+		"imdbID": "tt0372784",
+		"Type": "movie",
+		"Poster": "somePosterUrl"
+	}
+    ],
+	"totalResults": "497",
+	"Response": "True"
+}

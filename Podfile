@@ -16,6 +16,7 @@ target 'MVVMExample (iOS)' do
   target 'MVVMExampleSnapshotTests' do
     inherit! :search_paths
     
+    pod 'Mocker', '~> 2.5.5'
     pod 'SnapshotTesting', '~> 1.9.0'
   end
 end

@@ -12,7 +12,8 @@ class MockURLSession {
         data: Data? = nil,
         statusCode: Int,
         httpVersion: String? = nil,
-        headerFields: [String : String]? = nil
+        headerFields: [String : String]? = nil,
+        error: Error? = nil
     ) -> URLSession {
         
         givenUrl = url
@@ -22,10 +23,25 @@ class MockURLSession {
         givenHeaderFields = headerFields
         
         let response = HTTPURLResponse(url: url, statusCode: statusCode, httpVersion: httpVersion, headerFields: headerFields)
-        MockURLProtocol.mockURLs = [url: (nil, data, response)]
+        MockURLProtocol.mockURLs = [url: (error, data, response)]
         
         let sessionConfiguration = URLSessionConfiguration.ephemeral
         sessionConfiguration.protocolClasses = [MockURLProtocol.self]
+        
+        URLProtocol.registerClass(MockURLProtocol.self)
+        
+        return URLSession(configuration: sessionConfiguration)
+    }
+    
+    func createBatchMocks(
+        withUrls batchUrls: [URL?: (error: Error?, data: Data?, response: HTTPURLResponse?)]
+    ) -> URLSession {
+        MockURLProtocol.mockURLs = batchUrls
+        
+        let sessionConfiguration = URLSessionConfiguration.ephemeral
+        sessionConfiguration.protocolClasses = [MockURLProtocol.self]
+        
+        URLProtocol.registerClass(MockURLProtocol.self)
         
         return URLSession(configuration: sessionConfiguration)
     }
