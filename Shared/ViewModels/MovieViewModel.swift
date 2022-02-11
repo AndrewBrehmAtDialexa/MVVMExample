@@ -2,13 +2,14 @@ import SwiftUI
 
 class MovieViewModel: ObservableObject {
     let movie: Movie
+    let placeHolderImage = UIImage(systemName: "film") ?? UIImage()
     @Published var posterImage: UIImage
     var imdbMovieService = ImdbMovieService()
     
     
     init(withMovie movie: Movie) {
         self.movie = movie
-        self.posterImage = UIImage(systemName: "film") ?? UIImage()
+        self.posterImage = placeHolderImage
     }
     
     var title: String {
@@ -25,6 +26,11 @@ class MovieViewModel: ObservableObject {
     
     var posterUrl: String {
         movie.posterUrl
+    }
+    
+    var posterImagePadding: EdgeInsets {
+        let padding: CGFloat = (posterImage == placeHolderImage ? 25 : 0)
+        return EdgeInsets(top: padding * 2, leading: padding, bottom: padding * 2, trailing: padding)
     }
     
     func getPosterImage() {

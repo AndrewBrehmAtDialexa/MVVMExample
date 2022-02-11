@@ -19,7 +19,7 @@ struct MovieListView: View {
             .listRowSeparator(.hidden)
             .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 2, trailing: 0))
         }
-        .listStyle(InsetListStyle())
+        .listStyle(PlainListStyle())
         .id("movieList")
     }
 }

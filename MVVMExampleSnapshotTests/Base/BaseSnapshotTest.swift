@@ -18,8 +18,7 @@ class BaseSnapshotTest: XCTestCase {
     private let devicesToTest: [String : ViewImageConfig] = [
         "iPhoneXsMax" : .iPhoneXsMax,
         "iPadPro12_9" : .iPadPro12_9(.portrait),
-        "iPhoneSe" : .iPhoneSe,
-        "iPhone8" : .iPhone8
+        "iPhoneSe" : .iPhoneSe
     ]
     
     override func setUp() {

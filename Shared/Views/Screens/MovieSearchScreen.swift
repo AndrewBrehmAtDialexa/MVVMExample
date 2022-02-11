@@ -26,11 +26,11 @@ struct MovieSearchScreen: View {
                     .border(Color(.black), width: 2.0)
                     .id("searchField")
             }
-            .padding()
             .id("searchHolder")
             
             MovieListView(withMovieListScreenViewModel: movieListScreenViewModel)
         }
+        .padding()
         .navigationTitle("Movies")
         .onAppear {
             self.didAppear?(self)
@@ -52,6 +52,7 @@ struct MovieListScreen_Previews: PreviewProvider {
         ]
         
         return MovieSearchScreen(withMovieListScreenViewModel: movieListScreenViewModel)
+            
     }
 }
 #endif
