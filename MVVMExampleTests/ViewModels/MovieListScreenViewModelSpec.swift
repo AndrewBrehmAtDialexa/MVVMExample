@@ -23,7 +23,7 @@ class MovieListScreenViewModelSpec: QuickSpec {
                 
                 describe("when .movies changes") {
                     beforeEach {
-                        uut?.movies = [MovieViewModel(movie: MockMovie.create())]
+                        uut?.movies = [MovieViewModel(withMovie: MockMovie.create())]
                     }
                     
                     it("publishes the change") {

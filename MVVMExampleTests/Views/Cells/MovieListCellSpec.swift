@@ -12,7 +12,7 @@ class MovieListCellSpec: QuickSpec {
             var movieViewModel: MovieViewModel?
             
             beforeEach {
-                movieViewModel = MovieViewModel(movie: MockMovie.create())
+                movieViewModel = MovieViewModel(withMovie: MockMovie.create())
                 uut = MovieListCell(withMovieViewModel: movieViewModel!)
             }
             

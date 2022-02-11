@@ -13,9 +13,9 @@ class MovieListViewSpec: QuickSpec {
             beforeEach {
                 movieListScreenViewModel = MockMovieListScreenViewModel()
                 movieListScreenViewModel?.movies = [
-                    MovieViewModel(movie: MockMovie.create(withPlacement: "1")),
-                    MovieViewModel(movie: MockMovie.create(withPlacement: "2")),
-                    MovieViewModel(movie: MockMovie.create(withPlacement: "3")),
+                    MovieViewModel(withMovie: MockMovie.create(withPlacement: "1")),
+                    MovieViewModel(withMovie: MockMovie.create(withPlacement: "2")),
+                    MovieViewModel(withMovie: MockMovie.create(withPlacement: "3")),
                 ]
                 uut = MovieListView(withMovieListScreenViewModel: movieListScreenViewModel!)
             }

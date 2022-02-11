@@ -45,9 +45,7 @@ class BaseSnapshotTest: XCTestCase {
         timeout: TimeInterval = 0,
         line: UInt = #line
     ){
-//        generateDummy(for: view)
-        
-        devicesToTest.forEach { device in
+      devicesToTest.forEach { device in
             var navController: UINavigationController?
             var componentSize: CGSize?
             
@@ -63,19 +61,10 @@ class BaseSnapshotTest: XCTestCase {
             }
             
             let result = verify(navController ?? view, forDeviceImageConfig: device.value, named: device.key, withComponentSize: componentSize, file: file, record: recording, timeout: timeout)
-            
             guard let message = result else { return }
             XCTFail(message, file: file, line: line)
         }
-        
-//        deletefile(atPath: "\(pathToSnapshotReferenceDir())/\(methodName).DUMMY.png")
     }
-    
-//    private func generateDummy(for view: UIViewController) {
-//        if let dummyDevice = devicesToTest.first {
-//            let _ = verify(view, forDeviceImageConfig: dummyDevice.value, named: "DUMMY")
-//        }
-//    }
     
     private func verify(
         _ view: UIViewController,

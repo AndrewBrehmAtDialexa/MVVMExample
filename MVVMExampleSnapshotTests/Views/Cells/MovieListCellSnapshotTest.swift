@@ -4,29 +4,26 @@ import SwiftUI
 @testable import MVVMExample
 
 class MovieListCellSnapshotTest: BaseSnapshotTest {
-    func testMovieListCell() {
+    func testMovieListCellWithPosterImage() {
         let stub = StubData()
-        stub.addMockUrl(forUrl: "somePosterUrl", fromResource: "posterImage", withExtension: "jpg")
-        stub.create()
+        let posterImage = stub.createImage(fromResource: "posterImage", withExtension: "jpg")
         
-        let mockMovie = MockMovie.create() 
-        let movieListCell = MovieListCell(withMovieViewModel: MovieViewModel(movie: mockMovie))
+        let mockMovie = MockMovie.create()
+        let movieViewModel = MovieViewModel(withMovie: mockMovie)
+        movieViewModel.posterImage = posterImage
+        let movieListCell = MovieListCell(withMovieViewModel: movieViewModel)
+        
+        let uut = UIHostingController<MovieListCell>(rootView: movieListCell)
+        
+        takeSnapshot(for: uut, clipToComponent: true)
+    }
+    
+    func testMovieListCellWithPlaceholderImage() {
+        let mockMovie = MockMovie.create()
+        let movieListCell = MovieListCell(withMovieViewModel: MovieViewModel(withMovie: mockMovie))
         
         let uut = UIHostingController<MovieListCell>(rootView: movieListCell)
         
         takeSnapshot(for: uut, clipToComponent: true)
     }
 }
-
-
-/*
- 
- With Dummy -> imges appear
- without dummy -> images appear / one image always blank
- 
- WO dummy / timeout 5 / wait 0 -> IBID
- WO dummy / timeout 5 / wait 5 -> IBID
- 
- WO dummy / timeout 5 / NO wait ->
- 
- */

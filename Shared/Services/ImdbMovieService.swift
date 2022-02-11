@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 class ImdbMovieService {
     
@@ -41,5 +42,32 @@ class ImdbMovieService {
         }
 
         return searchResponse
+    }
+    
+    // MARK: - Images
+    
+    func getPosterImage(forUrlString urlString: String, completion: @escaping (Result<UIImage, MovieError>) -> Void) {
+        guard let url = URL.forPosterImage(withUrlString: urlString) else {
+            return completion(.failure(MovieError(networkError: .badUrl)))
+        }
+        
+        httpService.get(withUrl: url, completion: { result in
+            switch result {
+            case.success(let data):
+                
+                if let image = self.decodeImage(fromData: data) {
+                    completion(.success(image))
+                } else {
+                    completion(.failure(MovieError(networkError: .decodingError)))
+                }
+                
+            case.failure(let error):
+                completion(.failure(MovieError(networkError: error)))
+            }
+        })
+    }
+    
+    private func decodeImage(fromData data: Data) -> UIImage? {
+        return UIImage(data: data)
     }
 }
