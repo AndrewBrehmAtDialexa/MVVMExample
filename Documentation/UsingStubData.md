@@ -18,7 +18,6 @@ In order to make stub calls you will need to copy over certain files in this pro
 
 ## How to Use
 # Getting Data
-(see [MovieSearchScreenSnapshotTest](/MVVMExampleSnapshotTests/Views/Screens/MovieSearchScreenSnapshotTest.swift) > testListWithMoviesAndNoImages)
 * Instantiate StubData
   * `let stub = StubData()`
 * Call .addMockUrl() and add in the url string you want to capture, the file name and it's file extension
@@ -31,3 +30,27 @@ let stub = StubData()
 stub.addMockUrl(forUrl: url, fromResource: "myStubFileName", withExtension: "json")
 stub.create()
 ```
+  ### EXAMPLE:
+  * Taken from [MovieSearchScreenSnapshotTest](/MVVMExampleSnapshotTests/Views/Screens/MovieSearchScreenSnapshotTest.swift) > testListWithMoviesAndNoImages
+```
+func testListWithMoviesAndNoImages() {
+    let stub = StubData()
+    let url = URL.forOmdb(withSearchTerm: "batman")!.absoluteString
+    stub.addMockUrl(forUrl: url, fromResource: "batmanStub", withExtension: "json")
+    stub.create()
+
+    let movieSearchScreen = MovieSearchScreen()
+    movieSearchScreen.movieListScreenViewModel.getMovies(forSearchTerm: "batman")
+
+    let uut = UIHostingController<MovieSearchScreen>(rootView: movieSearchScreen)
+    takeSnapshot(for: uut, addToNavigationView: true)
+}
+```
+   * `testListWithMoviesAndNoImages()` sets up the call to the url (`https://www.omdbapi.com/?s=batman&apikey=\(Constants.omdbApiKey)`) and will return the resource of [`batmanStub.json`](/MVVMExampleSnapshotTests/Base/TestResources/batmanStub.json)
+   * The MovieSearchScreen is instantiated.
+   * The `.movieListScreenViewModel` calls `.getMovies()`
+     * This causes the code to make the call through the HTTPService as normal BUT the url has been registered in the MockUrlSession to return what we want it to.
+   * `takeSnapshot()` is called to record the snapshot as normal.
+   * Result (taken from [MovieSearchScreenSnapshotTest](/MVVMExampleSnapshotTests/__Snapshots__/MovieSearchScreenSnapshotTest/testListWithMoviesAndNoImages.iPadPro12_9.png) > testListWithMoviesAndNoImages)
+   * <img src="/MVVMExampleSnapshotTests/__Snapshots__/MovieSearchScreenSnapshotTest/testListWithMoviesAndNoImages.iPadPro12_9.png" width="500">
+> NOTE: The image is using all of the Stub data from `batmanStub.json` file.
