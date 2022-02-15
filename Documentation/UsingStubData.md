@@ -30,7 +30,7 @@ let stub = StubData()
 stub.addMockUrl(forUrl: url, fromResource: "myStubFileName", withExtension: "json")
 stub.create()
 ```
-  * ### EXAMPLE:
+  ### EXAMPLE:
   * Taken from [MovieSearchScreenSnapshotTest](/MVVMExampleSnapshotTests/Views/Screens/MovieSearchScreenSnapshotTest.swift) > testListWithMoviesAndNoImages
 ```
 func testListWithMoviesAndNoImages() {
@@ -137,7 +137,17 @@ func testListWithMoviesAndImages() {
     takeSnapshot(for: uut, addToNavigationView: true)
 }
 ```
-
+ * `testListWithMoviesAndImages()` sets up the call to the url and will return the resource of [`batmanStub.json`](/MVVMExampleSnapshotTests/Base/TestResources/batmanStub.json)
+   * The MovieSearchScreen is instantiated.
+   * The `.movieListScreenViewModel` calls `.getMovies()`
+   * An `XCTNSPredicateExpectation` is created and set to wait for `"movieSearchScreen.movieListScreenViewModel.movies.count > 0"`
+     * Once the expectation is fulfilled (i.e. the url call is complete and the data is decoded) it continues on in the test
+   * The Stub image is created
+   * It loops through the view model's `.movies` and injects the Stub image into the `.posterImage`
+   * `takeSnapshot()` is called to record the snapshot as normal.
+   * Result (taken from [MovieSearchScreenSnapshotTest](/MVVMExampleSnapshotTests/__Snapshots__/MovieSearchScreenSnapshotTest/testListWithMoviesAndImages.iPadPro12_9.png) > testListWithMoviesAndImages)
+   * <img src="/MVVMExampleSnapshotTests/__Snapshots__/MovieSearchScreenSnapshotTest/testListWithMoviesAndImages.iPadPro12_9.png" width="500">
+> NOTE: The image is using all of the Stub data from `batmanStub.json` file AND the injected `posterImage.jpg`.
 
 
 
