@@ -2,7 +2,7 @@ import SwiftUI
 
 class MovieViewModel: ObservableObject {
     let movie: Movie
-    let placeHolderImage = UIImage(systemName: "film") ?? UIImage()
+    let placeHolderImage = UIImage(systemName: "film")!// ?? UIImage()
     @Published var posterImage: UIImage
     var imdbMovieService = ImdbMovieService()
     

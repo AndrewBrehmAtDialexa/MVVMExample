@@ -28,61 +28,29 @@ class MovieListCellSpec: QuickSpec {
                 }
                 
                 describe("mainHStack") {
-                    var posterAsyncImage: InspectableView<ViewType.AsyncImage>?
+                    var posterImage: InspectableView<ViewType.Image>?
                     var textHolderVStack: InspectableView<ViewType.VStack>?
                     
                     beforeEach {
-                        posterAsyncImage = mainHStack?.findChild(type: ViewType.AsyncImage.self, withId: "posterAsyncImage")
+                        posterImage = mainHStack?.findChild(type: ViewType.Image.self, withId: "posterImage")
                         textHolderVStack = mainHStack?.findChild(type: ViewType.VStack.self, withId: "textHolderVStack")
                     }
                     
-                    it("has an AsyncImage with .id 'posterAsyncImage'") {
-                        expect(posterAsyncImage).toNot(beNil())
+                    it("has an Image with .id 'posterImage'") {
+                        expect(posterImage).toNot(beNil())
                     }
                     
-                    describe("posterAsyncImage") {
-                        var image: InspectableView<ViewType.Image>?
-                        
-                        describe("when it has a valid .movie.posterUrl") {
-                            beforeEach {
-                                image = try? posterAsyncImage?.contentView(AsyncImagePhase.success(Image(systemName: "person"))).image()
-                            }
-                            
-                            it("returns an Image with .id 'poster'") {
-                                expect(try image?.id()).to(equal("poster"))
-                            }
-                        }
-                        
-                        describe("when it does not have a valid movie.posterUrl") {
-                            beforeEach {
-                                image = try? posterAsyncImage?.contentView(AsyncImagePhase.failure(NetworkError.noData)).image()
-                            }
-                            
-                            it("returns an Image with .id 'placeHolder'") {
-                                expect(try image?.id()).to(equal("placeHolder"))
-                            }
-                        }
-                        
-                        describe("when it is loading the posterUrl") {
-                            beforeEach {
-                                image = try? posterAsyncImage?.contentView(AsyncImagePhase.empty).image()
-                            }
-                            
-                            it("returns an Image with .id 'placeHolder'") {
-                                expect(try image?.id()).to(equal("placeHolder"))
-                            }
+                    describe("posterImage") {                        
+                        it("sets the .uiImage to .movieViewModel.placeHolderImage") {
+                            expect(try? posterImage?.actualImage().uiImage()).to(equal(movieViewModel?.placeHolderImage))
                         }
                         
                         it("has a .frame of (width: 100, height: 150, alignment: .center)") {
-                            expect(try posterAsyncImage?.fixedFrame()).to(equal( (width: 100, height: 150, alignment: .center) ))
+                            expect(try posterImage?.fixedFrame()).to(equal( (width: 100, height: 150, alignment: .center) ))
                         }
                         
                         it("has an .aspectRation of .fill") {
-                            expect(try posterAsyncImage?.aspectRatio().contentMode).to(equal(.fill))
-                        }
-                        
-                        it("has a .cornerRadius of 5.0") {
-                            expect(try posterAsyncImage?.cornerRadius()).to(equal(5.0))
+                            expect(try posterImage?.aspectRatio().contentMode).to(equal(.fill))
                         }
                     }
                     
@@ -104,7 +72,9 @@ class MovieListCellSpec: QuickSpec {
                         }
                         
                         describe("movieTitleText") {
-                            // TODO: test
+                            it("has text equal to 'someTitle'") {
+                                expect(try? movieTitleText?.string()).to(equal("someTitle"))
+                            }
                         }
                         
                         it("has a Text with .id 'movieYearText'") {
@@ -112,7 +82,9 @@ class MovieListCellSpec: QuickSpec {
                         }
                         
                         describe("movieYearText") {
-                            // TODO: test
+                            it("has text equal to 'someYear'") {
+                                expect(try? movieYearText?.string()).to(equal("someYear"))
+                            }
                         }
                     }
                 }

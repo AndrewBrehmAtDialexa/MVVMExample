@@ -14,7 +14,7 @@ struct MovieListCell: View {
                 .resizable()
                 .padding(movie.posterImagePadding)
                 .frame(width: 100, height: 150, alignment: .center)
-                .aspectRatio(contentMode: .fit)
+                .aspectRatio(contentMode: .fill)
                 .id("posterImage")
 
             VStack(alignment: .leading) {
