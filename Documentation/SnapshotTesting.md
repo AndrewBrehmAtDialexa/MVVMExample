@@ -64,23 +64,5 @@
     * Example taken from [MovieListCellSnapshotTest](/MVVMExampleSnapshotTests/__Snapshots__/MovieListCellSnapshotTest/testMovieListCell.iPhoneSe.png)
     * <img src="images/componentClipping.jpg" width="400">
 
-## Snapshot: Injecting Mock Data
-* Provided that your Views are set up for dependency injection, it is rather simple.
-* See [MovieSearchScreenSnapshotTest](/MVVMExampleSnapshotTests/Views/Screens/MovieSearchScreenSnapshotTest.swift)
-```
-func testListWithMovies() {
-    let movieListScreenViewModel = MovieListScreenViewModel()
-    movieListScreenViewModel.movies = [
-        MovieViewModel(movie: MockMovie.create(withPlacement: "1")),
-        MovieViewModel(movie: MockMovie.create(withPlacement: "2")),
-        MovieViewModel(movie: MockMovie.create(withPlacement: "3"))
-    ]
-    let uut = UIHostingController<MovieSearchScreen>(rootView: MovieSearchScreen(withMovieListScreenViewModel: movieListScreenViewModel))
-
-    takeSnapshot(for: uut, addToNavigationView: true)
-}  
-  
-```
-
 ## Known Limitations/Issues
 * Landscape snapshots are unreliable. SnapshotTesting Dependency is aware of it and this will more than likely improve with future releases.
