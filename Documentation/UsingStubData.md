@@ -30,7 +30,7 @@ let stub = StubData()
 stub.addMockUrl(forUrl: url, fromResource: "myStubFileName", withExtension: "json")
 stub.create()
 ```
-  ### EXAMPLE:
+  * ### EXAMPLE:
   * Taken from [MovieSearchScreenSnapshotTest](/MVVMExampleSnapshotTests/Views/Screens/MovieSearchScreenSnapshotTest.swift) > testListWithMoviesAndNoImages
 ```
 func testListWithMoviesAndNoImages() {
@@ -64,7 +64,7 @@ func testListWithMoviesAndNoImages() {
   * `myTestCase.imageToShow = someImage`
 ```
 let stub = StubData()
-let posterImage = stub.createImage(fromResource: "myImage", withExtension: "jpg")
+let someImage = stub.createImage(fromResource: "myImage", withExtension: "jpg")
 ```
   ### EXAMPLE:
   * Taken from [MovieListCellSnapshotTest](/MVVMExampleSnapshotTests/Views/Cells/MovieListCellSnapshotTest.swift) > testMovieListCellWithPosterImage
@@ -91,4 +91,53 @@ func testMovieListCellWithPosterImage() {
 > NOTE: The image is using the `posterImage.jpg` as the cell's image.
 
 ### Stubbing Asynchronous Images
-* As above (see [Stubbing Data](#stubbing-data)), make the Data call
+* As above (see [Stubbing Data](#stubbing-data)), make the Data call.
+* `.wait()` for the Stub call to complete
+  * Create an `XCTNSPredicateExpectation` and wait for that expectation to be fulfilled.
+```
+let expectation = XCTNSPredicateExpectation(
+    predicate: NSPredicate(format: "theViewToTest.viewModel.items.count > 0"),
+    object: movieSearchScreen)
+
+_ = XCTWaiter.wait(for: [expectation], timeout: 1, enforceOrder: true)
+```
+* When the data call is complete create the image(s) as above (see [Stubbing Images](#stubbing-images))
+* Inject your image(s)
+```
+let someImage = stub.createImage(fromResource: "myImage", withExtension: "jpg")
+for item in theViewToTest.viewModel.items {
+    item.imageToShow = someImage
+}
+```
+  ### EXAMPLE:
+  * Taken from [MovieSearchScreenSnapshotTest](/MVVMExampleSnapshotTests/Views/Screens/MovieSearchScreenSnapshotTest.swift) > testListWithMoviesAndImages
+```
+func testListWithMoviesAndImages() {
+    let stub = StubData()
+    let url = URL.forOmdb(withSearchTerm: "batman")!.absoluteString
+    stub.addMockUrl(forUrl: url, fromResource: "batmanStub", withExtension: "json")
+    stub.create()
+
+    let movieSearchScreen = MovieSearchScreen()
+    movieSearchScreen.movieListScreenViewModel.getMovies(forSearchTerm: "batman")
+
+    let moviesPopulatedExpectation = XCTNSPredicateExpectation(
+        predicate: NSPredicate(format: "movieSearchScreen.movieListScreenViewModel.movies.count > 0"),
+        object: movieSearchScreen)
+
+    _ = XCTWaiter.wait(for: [moviesPopulatedExpectation],
+                        timeout: 1, enforceOrder: true)
+
+    let posterImage = stub.createImage(fromResource: "posterImage", withExtension: "jpg")
+    for movie in movieSearchScreen.movieListScreenViewModel.movies {
+        movie.posterImage = posterImage
+    }
+
+    let uut = UIHostingController<MovieSearchScreen>(rootView: movieSearchScreen)
+    takeSnapshot(for: uut, addToNavigationView: true)
+}
+```
+
+
+
+
