@@ -17,7 +17,7 @@ In order to make stub calls you will need to copy over certain files in this pro
   * `posterImage.jpg` is used in both MVVMExampleSnapshotTests AND MVVMExampleTests targets so they each need their own copy.
 
 ## How to Use
-# Getting Data
+# Stubbing Data
 * Instantiate StubData
   * `let stub = StubData()`
 * Call .addMockUrl() and add in the url string you want to capture, the file name and it's file extension
@@ -54,3 +54,38 @@ func testListWithMoviesAndNoImages() {
    * Result (taken from [MovieSearchScreenSnapshotTest](/MVVMExampleSnapshotTests/__Snapshots__/MovieSearchScreenSnapshotTest/testListWithMoviesAndNoImages.iPadPro12_9.png) > testListWithMoviesAndNoImages)
    * <img src="/MVVMExampleSnapshotTests/__Snapshots__/MovieSearchScreenSnapshotTest/testListWithMoviesAndNoImages.iPadPro12_9.png" width="500">
 > NOTE: The image is using all of the Stub data from `batmanStub.json` file.
+
+# Stubbing Images
+* Instantiate StubData
+  * `let stub = StubData()`
+* Call `.createImage()` and add in the url string you want to capture, the file name and it's file extension
+  * `let someImage = stub.createImage(fromResource: "myImage", withExtension: "jpg")`
+* Inject that image into the View (or test case) you are testing.
+  * `myTestCase.imageToShow = someImage`
+```
+let stub = StubData()
+let posterImage = stub.createImage(fromResource: "myImage", withExtension: "jpg")
+```
+  ### EXAMPLE:
+  * Taken from [MovieListCellSnapshotTest](/MVVMExampleSnapshotTests/Views/Cells/MovieListCellSnapshotTest.swift) > testMovieListCellWithPosterImage
+```
+func testMovieListCellWithPosterImage() {
+    let stub = StubData()
+    let posterImage = stub.createImage(fromResource: "posterImage", withExtension: "jpg")
+
+    let mockMovie = MockMovie.create()
+    let movieViewModel = MovieViewModel(withMovie: mockMovie)
+    movieViewModel.posterImage = posterImage
+    let movieListCell = MovieListCell(withMovieViewModel: movieViewModel)
+
+    let uut = UIHostingController<MovieListCell>(rootView: movieListCell)
+
+    takeSnapshot(for: uut, clipToComponent: true)
+}
+```
+  * `posterImage` is stubbed from the `posterImage.jpg` file.
+  * `movieViewModel` is instantiated and its `.posterImage` var is injected with the stubbed image.
+  * `takeSnapshot()` is called to record the snapshot as normal.
+  * Result (taken from [MovieListCellSnapshotTest](/MVVMExampleSnapshotTests/__Snapshots__/MovieListCellSnapshotTest/testMovieListCellWithPosterImage.iPhoneSe.png) > testMovieListCellWithPosterImage)
+  * <img src="/MVVMExampleSnapshotTests/__Snapshots__/MovieListCellSnapshotTest/testMovieListCellWithPosterImage.iPhoneSe.png" width="500">
+> NOTE: The image is using the `posterImage.jpg` as the cell's image.
