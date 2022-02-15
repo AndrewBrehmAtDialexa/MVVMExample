@@ -1,32 +1,21 @@
 import SwiftUI
 
 struct MovieListCell: View {
-    private let movie: MovieViewModel
+    @ObservedObject private var movie: MovieViewModel
     
     init(withMovieViewModel viewModel: MovieViewModel) {
         self.movie = viewModel
+        self.movie.getPosterImage()
     }
     
     var body: some View {
         HStack {
-            AsyncImage(
-                url: URL(string: movie.posterUrl),
-                content: { image in
-                    image
-                        .resizable()
-                        .id("poster")
-                },
-                placeholder: {
-                    Image(systemName: "film")
-                        .resizable()
-                        .padding()
-                        .id("placeHolder")
-                }
-            )
+            Image(uiImage: movie.posterImage)
+                .resizable()
+                .padding(movie.posterImagePadding)
                 .frame(width: 100, height: 150, alignment: .center)
                 .aspectRatio(contentMode: .fill)
-                .cornerRadius(5.0)
-                .id("posterAsyncImage")
+                .id("posterImage")
 
             VStack(alignment: .leading) {
                 Text(movie.title)
@@ -43,14 +32,17 @@ struct MovieListCell: View {
         .background(Color(.lightGray))
         .cornerRadius(5.0)
         .id("mainHStack")
-        
     }
 }
 
 #if !TESTING
 struct MovieListCell_Previews: PreviewProvider {
     static var previews: some View {
-        MovieListCell(withMovieViewModel: MovieViewModel(movie: Movie(title: "Batman Begins", year: "2005", imdbId: "tt0372784", type: "movie", posterUrl: "https://m.media-amazon.com/images/M/MV5BOTY4YjI2N2MtYmFlMC00ZjcyLTg3YjEtMDQyM2ZjYzQ5YWFkXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg")))
+        // With Poster Image
+        MovieListCell(withMovieViewModel: MovieViewModel(withMovie: Movie(title: "Batman Begins", year: "2005", imdbId: "tt0372784", type: "movie", posterUrl: "https://m.media-amazon.com/images/M/MV5BOTY4YjI2N2MtYmFlMC00ZjcyLTg3YjEtMDQyM2ZjYzQ5YWFkXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg")))
+        
+        // No Poster Image
+        MovieListCell(withMovieViewModel: MovieViewModel(withMovie: Movie(title: "Batman Begins", year: "2005", imdbId: "tt0372784", type: "movie", posterUrl: "BadUrl")))
     }
 }
 #endif

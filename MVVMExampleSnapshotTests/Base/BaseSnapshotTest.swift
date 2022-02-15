@@ -16,9 +16,9 @@ class BaseSnapshotTest: XCTestCase {
      iPads are defaulted to .landscape mode
      */
     private let devicesToTest: [String : ViewImageConfig] = [
-        "iPhoneSe" : .iPhoneSe,
         "iPhoneXsMax" : .iPhoneXsMax,
-        "iPadPro12_9" : .iPadPro12_9(.portrait)
+        "iPadPro12_9" : .iPadPro12_9(.portrait),
+        "iPhoneSe" : .iPhoneSe
     ]
     
     override func setUp() {
@@ -44,11 +44,9 @@ class BaseSnapshotTest: XCTestCase {
         timeout: TimeInterval = 0,
         line: UInt = #line
     ){
-        devicesToTest.forEach { device in
-            
+      devicesToTest.forEach { device in
             var navController: UINavigationController?
             var componentSize: CGSize?
-            
             
             if addNav {
                 navController = UINavigationController()
@@ -61,20 +59,31 @@ class BaseSnapshotTest: XCTestCase {
                 componentSize = CGSize(width: componentWidth, height: view.preferredContentSize.height)
             }
             
-            let result = verifySnapshot(
-                matching: navController ?? view,
-                as: .image(on: device.value, size: componentSize),
-                named: "\(device.key)",
-                record: recording,
-                snapshotDirectory: pathToSnapshotReferenceDir(),
-                timeout: timeout,
-                file: file,
-                testName: methodName
-            )
-            
+            let result = verify(navController ?? view, forDeviceImageConfig: device.value, named: device.key, withComponentSize: componentSize, file: file, record: recording, timeout: timeout)
             guard let message = result else { return }
             XCTFail(message, file: file, line: line)
         }
+    }
+    
+    private func verify(
+        _ view: UIViewController,
+        forDeviceImageConfig imageConfig: ViewImageConfig,
+        named name: String,
+        withComponentSize componentSize: CGSize? = nil,
+        file: StaticString = #file,
+        record recording: Bool = false,
+        timeout: TimeInterval = 0
+    ) -> String? {
+        return verifySnapshot(
+            matching: view,
+            as: .wait(for: timeout, on: .image(on: imageConfig, size: componentSize)),
+            named: name,
+            record: recording,
+            snapshotDirectory: pathToSnapshotReferenceDir(),
+            timeout: timeout,
+            file: file,
+            testName: methodName
+        )
     }
     
     private func diff(_ old: UIImage, _ new: UIImage) -> UIImage {
@@ -94,10 +103,10 @@ class BaseSnapshotTest: XCTestCase {
         devicesToTest.forEach { device in
             let deviceName = device.key
             let failureSnapshotDirUrl = URL(fileURLWithPath: pathToSnapshotArtifacts(), isDirectory: true)
-            let snapshotDirUrl = failureSnapshotDirUrl.deletingLastPathComponent()
+            let snapshotDirUrl = URL(fileURLWithPath: pathToSnapshotReferenceDir(), isDirectory: true)
             
             let failingImageUrl = failureSnapshotDirUrl.appendingPathComponent("\(testCaseName)/\(methodName).\(deviceName).png")
-            let baselineImageUrl = snapshotDirUrl.appendingPathComponent("\(testCaseName)/\(methodName).\(deviceName).png")
+            let baselineImageUrl = snapshotDirUrl.appendingPathComponent("\(methodName).\(deviceName).png")
             
             guard
                 let baseImageData = try? Data(contentsOf: baselineImageUrl),
@@ -156,7 +165,7 @@ class BaseSnapshotTest: XCTestCase {
         if fileManager.fileExists(atPath: filePath) {
             try? fileManager.removeItem(atPath: filePath)
         } else {
-            print("File does not exist")
+            print("File does not exist: ", filePath)
         }
     }
     

@@ -8,6 +8,7 @@ class MovieListScreenViewModel: ObservableObject {
     var imdbMovieService = ImdbMovieService()
     
     func getMovies(forSearchTerm search: String) {
+        
         imdbMovieService.getMovies(bySearchTerm: search.encoded) { result in
             switch result {
             case.success(let moviesResult):

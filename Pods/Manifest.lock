@@ -7,7 +7,7 @@ PODS:
 DEPENDENCIES:
   - Nimble (~> 9.2.1)
   - Quick (~> 4.0.0)
-  - SnapshotTesting (= 1.9.0)
+  - SnapshotTesting (~> 1.9.0)
   - ViewInspector (~> 0.9.0)
 
 SPEC REPOS:
@@ -23,6 +23,6 @@ SPEC CHECKSUMS:
   SnapshotTesting: 6141c48b6aa76ead61431ca665c14ab9a066c53b
   ViewInspector: 68842776f07fbf186713689d4846e54f32ccbffb
 
-PODFILE CHECKSUM: 47a7ff23af742d2967794895d25f1c516cd573e5
+PODFILE CHECKSUM: 684e0d0a9a6154dc826ccb368f936f7befaab614
 
 COCOAPODS: 1.11.2
