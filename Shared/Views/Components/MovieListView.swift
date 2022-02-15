@@ -6,7 +6,6 @@ struct MovieListView: View {
     
     init(withMovieListScreenViewModel viewModel: MovieListScreenViewModel) {
         self.movieListScreenViewModel = viewModel
-        print("TEST: MovieListView init")
     }
     
     var body: some View {
