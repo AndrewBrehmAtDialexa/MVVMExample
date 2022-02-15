@@ -3,7 +3,7 @@ import XCTest
 import SwiftUI
 @testable import MVVMExample
 
-class MovieSearchScreenSnapshotTest: BaseSnapshotTest {     
+class MovieSearchScreenSnapshotTest: BaseSnapshotTest {
     func testMovieSearchScreen() {
         let uut = UIHostingController<MovieSearchScreen>(rootView: MovieSearchScreen())
         takeSnapshot(for: uut, addToNavigationView: true)
