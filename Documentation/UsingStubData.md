@@ -17,7 +17,7 @@ In order to make stub calls you will need to copy over certain files in this pro
   * `posterImage.jpg` is used in both MVVMExampleSnapshotTests AND MVVMExampleTests targets so they each need their own copy.
 
 ## How to Use
-# Stubbing Data
+### Stubbing Data
 * Instantiate StubData
   * `let stub = StubData()`
 * Call .addMockUrl() and add in the url string you want to capture, the file name and it's file extension
@@ -55,7 +55,7 @@ func testListWithMoviesAndNoImages() {
    * <img src="/MVVMExampleSnapshotTests/__Snapshots__/MovieSearchScreenSnapshotTest/testListWithMoviesAndNoImages.iPadPro12_9.png" width="500">
 > NOTE: The image is using all of the Stub data from `batmanStub.json` file.
 
-# Stubbing Images
+### Stubbing Images
 * Instantiate StubData
   * `let stub = StubData()`
 * Call `.createImage()` and add in the url string you want to capture, the file name and it's file extension
@@ -89,3 +89,6 @@ func testMovieListCellWithPosterImage() {
   * Result (taken from [MovieListCellSnapshotTest](/MVVMExampleSnapshotTests/__Snapshots__/MovieListCellSnapshotTest/testMovieListCellWithPosterImage.iPhoneSe.png) > testMovieListCellWithPosterImage)
   * <img src="/MVVMExampleSnapshotTests/__Snapshots__/MovieListCellSnapshotTest/testMovieListCellWithPosterImage.iPhoneSe.png" width="500">
 > NOTE: The image is using the `posterImage.jpg` as the cell's image.
+
+### Stubbing Asynchronous Images
+* As above (see [Stubbing Data](#stubbing-data)), make the Data call
