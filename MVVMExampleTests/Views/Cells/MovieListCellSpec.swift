@@ -88,6 +88,10 @@ class MovieListCellSpec: QuickSpec {
                         }
                     }
                 }
+                
+                it("has a .cornerRadius of 5.0") {
+                    expect(try? mainHStack?.cornerRadius()).to(equal(5.0))
+                }
             }
         }
     }
