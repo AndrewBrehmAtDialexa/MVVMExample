@@ -106,7 +106,7 @@ class BaseSnapshotTest: XCTestCase {
             let snapshotDirUrl = URL(fileURLWithPath: pathToSnapshotReferenceDir(), isDirectory: true)
             
             let failingImageUrl = failureSnapshotDirUrl.appendingPathComponent("\(testCaseName)/\(methodName).\(deviceName).png")
-            let baselineImageUrl = snapshotDirUrl.appendingPathComponent("\(testCaseName)/\(methodName).\(deviceName).png")
+            let baselineImageUrl = snapshotDirUrl.appendingPathComponent("\(methodName).\(deviceName).png")
             
             guard
                 let baseImageData = try? Data(contentsOf: baselineImageUrl),
